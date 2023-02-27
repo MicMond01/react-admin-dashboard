@@ -23,6 +23,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useTheme } from "@mui/material";
 import { tokens } from "./../../theme";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -282,6 +283,11 @@ export default function SalesTable({ importedArr, setImportedArr }) {
     }
   };
 
+  const handleNewWindow = (id) => {
+    const previousData = [...importedArr];
+    const index = previousData.findIndex((item) => item.id === id);
+  };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -372,11 +378,20 @@ export default function SalesTable({ importedArr, setImportedArr }) {
                       >
                         {row.amount === row.payment ? "Paid" : "Overdue"}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell
+                        align="right"
+                        display="inline-flex"
+                        sx={{ display: "inline-flex" }}
+                      >
                         <Tooltip title="Delete">
                           {/* here */}
                           <IconButton onClick={() => handleDelete(row.id)}>
                             <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="new-windows">
+                          <IconButton onClick={() => handleNewWindow(row.id)}>
+                            <OpenInNewIcon />
                           </IconButton>
                         </Tooltip>
                       </TableCell>
