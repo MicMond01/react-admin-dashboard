@@ -23,6 +23,9 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useTheme } from "@mui/material";
 import { tokens } from "./../../theme";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 function descendingComparator(a, b, orderBy) {
@@ -235,7 +238,17 @@ export default function SalesTable({ importedArr, setImportedArr }) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [invoiceValue, setInvoiceValue] = useState({
+    brandName: "",
+    date: "",
+    supplies: "",
+    amount: "",
+    payment: "",
+    id: "",
+    status: "",
+  });
 
+  const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -283,9 +296,33 @@ export default function SalesTable({ importedArr, setImportedArr }) {
     }
   };
 
-  const handleNewWindow = (id) => {
+  const handleNewWindow = (
+    id,
+    amount,
+    date,
+    supplies,
+    brandName,
+    payment,
+    status
+  ) => {
+    navigate(`/sales/InvoiceReceipt/${invoiceValue}`);
     const previousData = [...importedArr];
     const index = previousData.findIndex((item) => item.id === id);
+
+    if (index > -1) {
+      setInvoiceValue((prev) => [
+        ...prev,
+        {
+          brandName: brandName,
+          date: date,
+          supplies: supplies,
+          amount: amount,
+          payment: payment,
+          id: id,
+          status: status,
+        },
+      ]);
+    }
   };
 
   const handleChangePage = (event, newPage) => {
@@ -374,15 +411,26 @@ export default function SalesTable({ importedArr, setImportedArr }) {
 
                       <TableCell
                         align="right"
-                        // TODO add conditional color to the text
+                        sx={{
+                          color:
+                            row.amount === row.payment
+                              ? colors.greenAccent[600]
+                              : colors.redAccent[300],
+                        }}
                       >
-                        {row.amount === row.payment ? "Paid" : "Overdue"}
+                        <Box
+                          sx={{
+                            bgcolor: colors.grey[600],
+                            borderRadius: "10px",
+                            display: "center",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          {row.amount === row.payment ? "Paid" : "Overdue"}
+                        </Box>
                       </TableCell>
-                      <TableCell
-                        align="right"
-                        display="inline-flex"
-                        sx={{ display: "inline-flex" }}
-                      >
+                      <TableCell align="right" display="inline-flex">
                         <Tooltip title="Delete">
                           {/* here */}
                           <IconButton onClick={() => handleDelete(row.id)}>
@@ -390,7 +438,18 @@ export default function SalesTable({ importedArr, setImportedArr }) {
                           </IconButton>
                         </Tooltip>
                         <Tooltip title="new-windows">
-                          <IconButton onClick={() => handleNewWindow(row.id)}>
+                          <IconButton
+                            onClick={() =>
+                              handleNewWindow(
+                                row.id,
+                                row.amount,
+                                row.date,
+                                row.brandName,
+                                row.supplies,
+                                row.payment
+                              )
+                            }
+                          >
                             <OpenInNewIcon />
                           </IconButton>
                         </Tooltip>

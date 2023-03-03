@@ -5,7 +5,6 @@ import MainApp from "./../pages/MainApp";
 import Register from "./../pages/Register";
 import Login from "./../pages/Login";
 
-
 const Dashboard = React.lazy(() => import("./../scenes/dashboard/index"));
 const Customers = React.lazy(() => import("../scenes/customers/index"));
 const Projects = React.lazy(() => import("./../scenes/projects/index"));
@@ -15,7 +14,12 @@ const Sales = React.lazy(() => import("./../scenes/sales/index"));
 const Proposal = React.lazy(() => import("./../scenes/proposal/index"));
 const Contracts = React.lazy(() => import("./../scenes/contracts/index"));
 const Messages = React.lazy(() => import("./../scenes/messages/index"));
-const Knowledgebase = React.lazy(() => import("./../scenes/knowledgebase/index"));
+const Knowledgebase = React.lazy(() =>
+  import("./../scenes/knowledgebase/index")
+);
+const InvoiceReceipt = React.lazy(() =>
+  import("./../components/InvoiceReceipt")
+);
 
 const type = "admin";
 const _route = [
@@ -67,6 +71,11 @@ const _route = [
   {
     path: "/knowledgebase",
     component: Knowledgebase,
+    permission: ["user", "admin"],
+  },
+  {
+    path: "/sales/InvoiceReceipt",
+    component: InvoiceReceipt,
     permission: ["user", "admin"],
   },
 ];
