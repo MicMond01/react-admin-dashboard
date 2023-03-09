@@ -1,239 +1,155 @@
-// import { Box, List } from "@mui/material";
-// import React, { useState } from "react";
-// import { mockDataContacts } from "../../data/mockData";
-// import ContactCard from "./../../components/ContactCard";
-// import { Draggable } from "react-beautiful-dnd";
-// import { DragDropContext, Droppable } from "react-beautiful-dnd";
-// // import { Draggable } from "@fullcalendar/interaction";
+import React, { useState } from "react";
+import styled from "@emotion/styled";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { tokens } from "../../theme";
+import TaskCard from "./../../components/leadsCompo/ContactCard";
+import { columnsFromBackend } from "./../../components/leadsCompo/DroppableData";
+// import AddNewContact from "./../../components/leadsCompo/AddNewContact";
 
-// const reorder = (list, startIndex, endIndex) => {
-//   const result = Array.from(list);
-//   const [removed] = result.splice(startIndex, 1);
-//   result.splice(endIndex, 0, removed);
-//   return result;
-// };
+const Container = styled.div`
+  display: flex;
+  margin-top: 75px;
+`;
 
-// const Leads = () => {
-//   const [project, setProject] = useState(mockDataContacts);
+const TaskList = styled.div`
+  min-height: 100px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background: #f3f3f3;
+  width: 541px;
+  border-radius: 5px;
+  padding: 15px 15px;
+  margin-right: 45px;
+`;
 
-//   // const onDragEnd = (result) => {
-//   //   if (!result.destination) return;
-//   //   if (result.destination.index === result.source.index) return;
-//   //   const projects = reorder(
-//   //     project, // project is state
-//   //     result.source.index,
-//   //     result.destination.index
-//   //   );
-//   //   //store reordered state.
-//   //   setProject(projects);
-//   // };
+const TaskColumnStyles = styled.div`
+  margin: 8px;
+  display: flex;
+  min-height: 80vh;
+`;
 
-//   // onDragEnd={onDragEnd}
+const Title = styled.span`
+  color: #10957d;
+  background: rgba(16, 149, 125, 0.15);
+  padding: 2px 10px;
+  border-radius: 5px;
+  align-self: flex-start;
+`;
 
-//   return (
-//     <DragDropContext>
-//       <Box
-//         m="20px"
-//         style={{
-//           display: "grid",
-//           gridTemplateColumns: "65% 33%",
-//           overflow: "auto",
-//           gap: "20px",
-//           overflowX: "hidden",
-//         }}
-//       >
-//         <Droppable droppableId="list">
-//           <List
-//             style={{
-//               height: "90vh",
-//               width: "100%",
-//               display: "grid",
-//               gap: "5px",
-//               gridTemplateColumns: "50% 50%",
-//               overflow: "auto",
-//               overflowX: "hidden",
-//             }}
-//           >
-//             {project.slice(0, 5).map((item, index) => (
-//               <Draggable index={index} key={item.id}>
-//                 <ContactCard
-//                   type={item.type}
-//                   name={item.name}
-//                   address={item.address}
-//                   telephone={item.phone}
-//                   email={item.email}
-//                   city={item.city}
-//                   id={item.registrarId}
-//                 />
-//               </Draggable>
-//             ))}
-//           </List>
-//         </Droppable>
-//         {/* <List
-//           style={{
-//             maxHeight: "90vh",
-//             width: "100%",
-//             display: "grid",
-//             gap: "5px",
-//             gridTemplateColumns: "1fr",
-//             overflow: "auto",
-//           }}
-//         >
-//           {mockDataContacts.slice(5, 20).map((item) => (
-//             <ContactCard
-//               key={item.id}
-//               type={item.type}
-//               name={item.name}
-//               address={item.address}
-//               telephone={item.phone}
-//               email={item.email}
-//               city={item.city}
-//               id={item.registrarId}
-//             />
-//           ))}
-//         </List> */}
-//       </Box>
-//     </DragDropContext>
-//   );
-// };
+const Leads = () => {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [columns, setColumns] = useState(columnsFromBackend);
 
-// export default Leads;
-
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-// import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
-import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
-// import TreeView from "@material-ui/lab/TreeView";
-// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-// import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-// import TreeItem from "@material-ui/lab/TreeItem";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { TreeItem } from "@mui/lab";
-import { TreeView } from "@mui/lab";
-
-const datas = [
-  { id: 2, label: "aaa" },
-  { id: 3, label: "bbb" },
-  { id: 4, label: "ccc" },
-];
-
-// const useStyles = makeStyles({
-//   root: {
-//     height: 216,
-//     flexGrow: 1,
-//     maxWidth: 400,
-//   },
-// });
-
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-});
-
-const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
-  width: 250,
-});
-
-export default function Leads() {
-  // const classes = useStyles();
-  const [expanded, setExpanded] = React.useState([]);
-  const [selected, setSelected] = React.useState([]);
-
-  const handleToggle = (event, nodeIds) => {
-    setExpanded(nodeIds);
+  const onDragEnd = (result, columns, setColumns) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+    if (source.droppableId !== destination.droppableId) {
+      const sourceColumn = columns[source.droppableId];
+      const destColumn = columns[destination.droppableId];
+      const sourceItems = [...sourceColumn.items];
+      const destItems = [...destColumn.items];
+      const [removed] = sourceItems.splice(source.index, 1);
+      destItems.splice(destination.index, 0, removed);
+      setColumns({
+        ...columns,
+        [source.droppableId]: {
+          ...sourceColumn,
+          items: sourceItems,
+        },
+        [destination.droppableId]: {
+          ...destColumn,
+          items: destItems,
+        },
+      });
+    } else {
+      const column = columns[source.droppableId];
+      const copiedItems = [...column.items];
+      const [removed] = copiedItems.splice(source.index, 1);
+      copiedItems.splice(destination.index, 0, removed);
+      setColumns({
+        ...columns,
+        [source.droppableId]: {
+          ...column,
+          items: copiedItems,
+        },
+      });
+    }
   };
 
-  const handleSelect = (event, nodeIds) => {
-    setSelected(nodeIds);
-  };
-
-  const onDragEnd = () => {
-    alert(1);
+  const AddContact = () => {
+    console.log("first");
   };
 
   return (
-    <DragDropContext>
-      <Droppable droppableId="droppable">
-        {(provided, snapshot) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            style={getListStyle(snapshot.isDraggingOver)}
-          >
-            <TreeView
-              sx={{ height: 216, flexGrow: 1, maxWidth: 400 }}
-              defaultCollapseIcon={<ExpandMoreIcon />}
-              defaultExpandIcon={<ChevronRightIcon />}
-              expanded={expanded}
-              selected={selected}
-              onNodeToggle={handleToggle}
-              onNodeSelect={handleSelect}
-            >
-              <TreeItem nodeId="1" label="Applications">
-                {datas.map((data, index) => (
-                  <Draggable draggableId={`${data.id}`} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
-                      >
-                        <TreeItem
-                          key={data.id}
-                          nodeId={data.id}
-                          label={data.label}
+    <DragDropContext
+      onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+    >
+      <Container>
+        <TaskColumnStyles>
+          {Object.entries(columns).map(([columnId, column], index) => {
+            return (
+              <Droppable key={columnId} droppableId={columnId}>
+                {(provided, snapshot) => (
+                  <Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        width: "541px",
+                        padding: "0 15px",
+                        height: "40px",
+                        bgcolor: colors.grey[800],
+                      }}
+                    >
+                      <Box>
+                        <Title>{column.title}</Title>
+                      </Box>
+                      <Box onClick={AddContact}>
+                        <IconButton
+                          sx={{
+                            bgcolor: colors.redAccent[800],
+                            height: "25px",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          <Typography>Add New Contact</Typography>
+                        </IconButton>
+                      </Box>
+                    </Box>
+                    <TaskList
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                    >
+                      {column.items.map((item, index) => (
+                        <TaskCard
+                          key={item.registrarId}
+                          item={item}
+                          index={index}
+                          type={item.type}
+                          name={item.name}
+                          address={item.address}
+                          telephone={item.phone}
+                          email={item.email}
+                          city={item.city}
+                          id={item.registrarId}
                         />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </TreeItem>
-            </TreeView>
-          </div>
-        )}
-      </Droppable>
+                      ))}
+                      {provided.placeholder}
+                    </TaskList>
+                  </Box>
+                )}
+              </Droppable>
+            );
+          })}
+        </TaskColumnStyles>
+      </Container>
     </DragDropContext>
   );
-}
+};
 
-// export default function DndTreeView() {
-//   const classes = useStyles();
-//   const [expanded, setExpanded] = React.useState([]);
-//   const [selected, setSelected] = React.useState([]);
-
-//   const handleToggle = (event, nodeIds) => {
-//     setExpanded(nodeIds);
-//   };
-
-//   const handleSelect = (event, nodeIds) => {
-//     setSelected(nodeIds);
-//   };
-
-//   const onDragEnd = () => {
-//     alert(1);
-//   };
-
-//   return (
-
-//   );
-// }
+export default Leads;

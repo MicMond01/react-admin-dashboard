@@ -23,6 +23,7 @@ const Topbar = () => {
       className="topBar"
       backgroundColor={colors.primary[400]}
       sx={{
+        width: "100%",
         [theme.breakpoints.down("md")]: {
           justifyContent: "start",
         },
@@ -30,8 +31,8 @@ const Topbar = () => {
     >
       {/* SEARCH BAR */}
       <Box
+        border={`1px solid ${colors.primary[300]}`}
         display="flex"
-        backgroundColor={colors.blueAccent[800]}
         borderRadius="3px"
         sx={{
           [theme.breakpoints.down("sm")]: {

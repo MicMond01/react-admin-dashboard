@@ -9,29 +9,45 @@ body,
 #root,
 .home,
 .content {
-  height: 100%;
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
   overflow-x: hidden;
 }
 
-.home {
-  display: flex;
+body {
+  height: 100vh;
+}
+
+.sidebarContainer {
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.mainBlock {
+  width: calc(100vw - 200px);
+  left: 200px;
   position: relative;
 }
 
-.mainApp {
+/* .home {
+  display: flex;
+  position: relative;
+} */
+
+/* .mainApp {
   width: 100vw;
   min-height: 100vh;
   display: flex;
-}
+} */
 
-.topBar {
+/* .topBar {
   position: sticky;
   z-index: 200;
   top: 0;
-  /* margin-top: 10rem; */
-}
+  margin-top: 10rem;
+} */
 
 .sideDetails {
   width: 100%;
@@ -54,4 +70,23 @@ body,
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+ul {
+  list-style: none;
+  padding-left: 5px;
+}
+
+.box {
+  width: 200px;
+  height: 50px;
+  margin-bottom: 5px;
+}
+
+.red {
+  background: red;
+}
+
+.green {
+  background: green;
 }
