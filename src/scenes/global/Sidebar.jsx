@@ -163,6 +163,7 @@ const Sidebar = () => {
                   );
                 }
               }
+              return item;
             })}
           </Box>
         </Menu>

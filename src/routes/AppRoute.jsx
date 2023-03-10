@@ -74,7 +74,7 @@ const _route = [
     permission: ["user", "admin"],
   },
   {
-    path: "/sales/InvoiceReceipt",
+    path: "/sales/InvoiceReceipt/:id",
     component: InvoiceReceipt,
     permission: ["user", "admin"],
   },

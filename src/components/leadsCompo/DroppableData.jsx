@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 export const mockDataContactsA = [
   {
@@ -139,12 +139,22 @@ export const mockDataContactsB = [
 ];
 
 export const columnsFromBackend = {
-  [uuidv4()]: {
-    title: "StaFf",
+  left: {
+    title: "Staff",
     items: mockDataContactsA,
   },
-  [uuidv4()]: {
-    title: "In Progress",
+  right: {
+    title: "Client",
     items: mockDataContactsB,
   },
 };
+// export const columnsFromBackend = {
+//   [uuidv4()]: {
+//     title: "StaFf",
+//     items: mockDataContactsA,
+//   },
+//   [uuidv4()]: {
+//     title: "In Progress",
+//     items: mockDataContactsB,
+//   },
+// };

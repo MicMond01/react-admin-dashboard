@@ -21,9 +21,9 @@ const TaskInformation = styled.div`
 
   .secondary-details {
     display: flex;
-    ${'' /* justify-content: space-between; */}
+    ${"" /* justify-content: space-between; */}
     align-items: center;
-    ${'' /* width: 100%; */}
+    ${"" /* width: 100%; */}
     font-size: 12px;
     font-weight: 400px;
     color: #7d7d7d;
@@ -41,17 +41,7 @@ const TaskInformation = styled.div`
   /* } */
 `;
 
-const TaskCard = ({
-  item,
-  index,
-  type,
-  name,
-  telephone,
-  email,
-  address,
-  city,
-  id,
-}) => {
+const TaskCard = ({ item, index }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -91,11 +81,11 @@ const TaskCard = ({
                     variant="h4"
                     fontWeight={theme.typography.fontWeightBold}
                   >
-                    {type}
+                    {item.type}
                   </Typography>
                   <Box>
                     <IconButton>
-                    <AddNewContact />
+                      <AddNewContact />
                     </IconButton>
                   </Box>
                 </Box>
@@ -112,7 +102,7 @@ const TaskCard = ({
                     <Typography
                       sx={{ color: colors.grey[200], textAlign: "center" }}
                     >
-                      {name}
+                      {item.name}
                     </Typography>
                   </Box>
                   <Box display="flex" marginBottom="5px">
@@ -122,7 +112,7 @@ const TaskCard = ({
                       Telephone:
                     </Typography>
                     <Typography sx={{ color: colors.grey[200] }}>
-                      {telephone}
+                      {item.telephone}
                     </Typography>
                   </Box>
                   <Box display="flex" marginBottom="5px">
@@ -132,7 +122,7 @@ const TaskCard = ({
                       Email:
                     </Typography>
                     <Typography sx={{ color: colors.grey[200] }}>
-                      {email}
+                      {item.email}
                     </Typography>
                   </Box>
                   <Box display="flex" marginBottom="5px">
@@ -142,7 +132,7 @@ const TaskCard = ({
                       Address:
                     </Typography>
                     <Typography sx={{ color: colors.grey[200] }}>
-                      {address}
+                      {item.address}
                     </Typography>
                   </Box>
                   <Box display="flex" marginBottom="5px">
@@ -152,7 +142,7 @@ const TaskCard = ({
                       City:
                     </Typography>
                     <Typography sx={{ color: colors.grey[200] }}>
-                      {city}
+                      {item.city}
                     </Typography>
                   </Box>
                   <Box display="flex" marginBottom="5px">
@@ -162,7 +152,7 @@ const TaskCard = ({
                       Register Id:
                     </Typography>
                     <Typography sx={{ color: colors.grey[200] }}>
-                      {id}
+                      {item.id}
                     </Typography>
                   </Box>
                 </Box>

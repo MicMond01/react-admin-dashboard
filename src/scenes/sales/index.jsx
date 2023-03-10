@@ -66,6 +66,7 @@ const Sales = () => {
   return (
     <Box
       m="20px"
+      mt="80px"
       sx={{
         [theme.breakpoints.down("sm")]: {
           m: "5px",

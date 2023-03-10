@@ -24,7 +24,6 @@ import { visuallyHidden } from "@mui/utils";
 import { useTheme } from "@mui/material";
 import { tokens } from "./../../theme";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
@@ -238,15 +237,6 @@ export default function SalesTable({ importedArr, setImportedArr }) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [invoiceValue, setInvoiceValue] = useState({
-    brandName: "",
-    date: "",
-    supplies: "",
-    amount: "",
-    payment: "",
-    id: "",
-    status: "",
-  });
 
   const navigate = useNavigate();
   const theme = useTheme();
@@ -296,33 +286,9 @@ export default function SalesTable({ importedArr, setImportedArr }) {
     }
   };
 
-  const handleNewWindow = (
-    id,
-    amount,
-    date,
-    supplies,
-    brandName,
-    payment,
-    status
-  ) => {
-    navigate(`/sales/InvoiceReceipt/${invoiceValue}`);
-    const previousData = [...importedArr];
-    const index = previousData.findIndex((item) => item.id === id);
-
-    if (index > -1) {
-      setInvoiceValue((prev) => [
-        ...prev,
-        {
-          brandName: brandName,
-          date: date,
-          supplies: supplies,
-          amount: amount,
-          payment: payment,
-          id: id,
-          status: status,
-        },
-      ]);
-    }
+  const handleNewWindow = (row) => {
+    console.log(row)
+    navigate(`/sales/InvoiceReceipt/${row.id}`);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -438,18 +404,7 @@ export default function SalesTable({ importedArr, setImportedArr }) {
                           </IconButton>
                         </Tooltip>
                         <Tooltip title="new-windows">
-                          <IconButton
-                            onClick={() =>
-                              handleNewWindow(
-                                row.id,
-                                row.amount,
-                                row.date,
-                                row.brandName,
-                                row.supplies,
-                                row.payment
-                              )
-                            }
-                          >
+                          <IconButton onClick={() => handleNewWindow(row)}>
                             <OpenInNewIcon />
                           </IconButton>
                         </Tooltip>

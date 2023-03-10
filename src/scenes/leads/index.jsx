@@ -6,6 +6,7 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import TaskCard from "./../../components/leadsCompo/ContactCard";
 import { columnsFromBackend } from "./../../components/leadsCompo/DroppableData";
+import Form from "./../../components/leadsCompo/Form";
 // import AddNewContact from "./../../components/leadsCompo/AddNewContact";
 
 const Container = styled.div`
@@ -44,6 +45,7 @@ const Leads = () => {
   const colors = tokens(theme.palette.mode);
   const [columns, setColumns] = useState(columnsFromBackend);
 
+  // console.log();
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const { source, destination } = result;
@@ -80,8 +82,27 @@ const Leads = () => {
     }
   };
 
-  const AddContact = () => {
-    console.log("first");
+  const [open, setOpen] = React.useState(false);
+  const [selectedBtn, setSelectedBtn] = useState("");
+
+  const handleClickOpen = (direction) => {
+    setOpen(true);
+    setSelectedBtn(direction);
+  };
+
+  const handleFormSubmit = (result) => {
+    const newData = result;
+
+    newData.registrarId = 565778;
+    newData.age = 48;
+    newData.id = 76;
+    newData.zipCode = 76;
+
+    // console.log(newData, result);
+    setColumns((prev) => ({
+      ...prev,
+      [selectedBtn]: { items: [...prev[selectedBtn].items, newData] },
+    }));
   };
 
   return (
@@ -109,8 +130,13 @@ const Leads = () => {
                       <Box>
                         <Title>{column.title}</Title>
                       </Box>
-                      <Box onClick={AddContact}>
+                      <Box>
                         <IconButton
+                          onClick={() =>
+                            handleClickOpen(
+                              column.title === "Staff" ? "left" : "right"
+                            )
+                          }
                           sx={{
                             bgcolor: colors.redAccent[800],
                             height: "25px",
@@ -120,24 +146,20 @@ const Leads = () => {
                           <Typography>Add New Contact</Typography>
                         </IconButton>
                       </Box>
+                      <Box open={open} position="absolute">
+                        <Form
+                          open={open}
+                          setOpen={setOpen}
+                          handleFormSubmit={handleFormSubmit}
+                        />
+                      </Box>
                     </Box>
                     <TaskList
                       ref={provided.innerRef}
                       {...provided.droppableProps}
                     >
                       {column.items.map((item, index) => (
-                        <TaskCard
-                          key={item.registrarId}
-                          item={item}
-                          index={index}
-                          type={item.type}
-                          name={item.name}
-                          address={item.address}
-                          telephone={item.phone}
-                          email={item.email}
-                          city={item.city}
-                          id={item.registrarId}
-                        />
+                        <TaskCard key={index} index={index} item={item} />
                       ))}
                       {provided.placeholder}
                     </TaskList>

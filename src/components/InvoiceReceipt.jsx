@@ -1,6 +1,6 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 // import React from "react";
 import { Typography } from "@mui/material/";
 import { useTheme } from "@mui/material";
@@ -12,23 +12,53 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { tokens } from "../theme";
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [createData("Frozen yoghurt", 159, 6.0, 24, 4.0)];
+import { clients } from "../data";
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import Breadcrumb from "./headers/Breadcrumb";
 
 const InvoiceReceipt = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const { params } = useParams()
+  const [selectedInvoice, setSelectedInvoice] = useState({});
 
-  console.log(params);
+  // console.log(selectedInvoice);
+  const { id } = useParams();
+  const getRow = () => {
+    const row = clients.find((item) => item.id === id);
+    setSelectedInvoice(row);
+  };
+
+  useEffect(() => {
+    getRow();
+  }, []);
 
   return (
-    <Box m="20px">
+    <Box m="20px" mt="80px">
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "20px",
+        }}
+      >
+        <Breadcrumb id={id} />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "40px",
+            height: "40px",
+            bgcolor: colors.blueAccent[800],
+            borderRadius: "5px"
+          }}
+        >
+          <IconButton>
+            <FileDownloadIcon />
+          </IconButton>
+        </Box>
+      </Box>
       <Box
         sx={{
           display: "flex",
@@ -41,11 +71,21 @@ const InvoiceReceipt = () => {
           <Typography variant="h3" fontWeight={theme.typography.fontWeightBold}>
             Invoice
           </Typography>
-          <Typography variant="h4">Invoice Number</Typography>
+          <Typography variant="h4">{selectedInvoice.id}</Typography>
         </Box>
         <Box>
-          <Typography variant="h1" sx={{ color: colors.greenAccent[400] }}>
-            Paid
+          <Typography
+            variant="h1"
+            sx={{
+              color:
+                selectedInvoice.amount === selectedInvoice.payment
+                  ? colors.greenAccent[600]
+                  : colors.redAccent[300],
+            }}
+          >
+            {selectedInvoice.amount === selectedInvoice.payment
+              ? "Paid"
+              : "Overdue"}
           </Typography>
         </Box>
       </Box>
@@ -85,8 +125,8 @@ const InvoiceReceipt = () => {
         }}
       >
         <Box>
-          <Typography>Invoice Dtate</Typography>
-          <Typography>05-20-2022</Typography>
+          <Typography>Invoice Date</Typography>
+          <Typography>{selectedInvoice.date}</Typography>
         </Box>
         <Box
           sx={{
@@ -101,10 +141,23 @@ const InvoiceReceipt = () => {
             }}
           >
             <Typography fontWeight={theme.typography.fontWeightBold}>
-              Payment
+              Total Payment
             </Typography>
             <Typography sx={{ color: colors.blueAccent[400] }}>
-              $234565
+              ${selectedInvoice.amount}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography fontWeight={theme.typography.fontWeightBold}>
+              Total Paid
+            </Typography>
+            <Typography sx={{ color: colors.blueAccent[400] }}>
+              ${selectedInvoice.payment}
             </Typography>
           </Box>
           <Box
@@ -125,7 +178,7 @@ const InvoiceReceipt = () => {
                 width: "70px",
               }}
             >
-              <Typography>$0.000</Typography>
+              <Typography>$ TODO</Typography>
             </Box>
           </Box>
         </Box>
@@ -133,6 +186,9 @@ const InvoiceReceipt = () => {
 
       {/*  */}
 
+      {/* {Object.entries(selectedInvoice).map((item, index) =>
+        item.map((newItem, i) => console.log(newItem.payment))
+      )} */}
       <TableContainer sx={{ marginTop: "40px" }} component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -145,20 +201,23 @@ const InvoiceReceipt = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))}
+            <TableRow
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {selectedInvoice.supplies}
+              </TableCell>
+              {/* <TableCell align="right">
+                {selectedInvoice.invoiceValues.qty}
+              </TableCell> */}
+              {/* <TableCell align="right">
+                {selectedInvoice.invoiceValues.unit}
+              </TableCell>
+              <TableCell align="right">
+                {selectedInvoice.invoiceValues.rate}
+              </TableCell> */}
+              <TableCell align="right">{selectedInvoice.amount}</TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>

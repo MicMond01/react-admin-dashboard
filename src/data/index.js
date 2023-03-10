@@ -6,7 +6,11 @@ const clients = [
     id: "INV-000190",
     amount: "1,600.00",
     payment: "1,000.00",
-    staues: "",
+    invoiceValues: {
+      qty: "2",
+      unit: "Item",
+      rate: "800",
+    },
   },
   {
     brandName: "Muslim Identity Kollections",
@@ -15,7 +19,11 @@ const clients = [
     id: "INV-000138",
     amount: "3,558.00",
     payment: "3,558.00",
-    staues: "",
+    invoiceValues: {
+      qty: "3",
+      unit: "Item",
+      rate: "1,186",
+    },
   },
   {
     brandName: "African Fashion Design Centre",
@@ -24,7 +32,11 @@ const clients = [
     id: "INV-000130",
     amount: "2,488.00",
     payment: "1,200.00",
-    staues: "",
+    invoiceValues: {
+      qty: "1",
+      unit: "Item",
+      rate: "2,488.00",
+    },
   },
   {
     brandName: "Allure Boutique",
@@ -33,7 +45,11 @@ const clients = [
     id: "INV-000630",
     amount: "4,028.00",
     payment: "2,300.00",
-    staues: "",
+    invoiceValues: {
+      qty: "5",
+      unit: "Item",
+      rate: "805.6",
+    },
   },
   {
     brandName: "Bel Afrique & Events",
@@ -42,7 +58,11 @@ const clients = [
     id: "INV-000147",
     amount: "9,858.00",
     payment: "9,858.00",
-    staues: "",
+    invoiceValues: {
+      qty: "3",
+      unit: "Item",
+      rate: "9,858",
+    },
   },
   {
     brandName: "CordLace Fashion House",
@@ -51,7 +71,11 @@ const clients = [
     id: "INV-000139",
     amount: "2,536.00",
     payment: "2,536.00",
-    staues: "",
+    invoiceValues: {
+      qty: "1",
+      unit: "Item",
+      rate: "2,536",
+    },
   },
   {
     brandName: "De-Classic Fashion",
@@ -60,7 +84,11 @@ const clients = [
     id: "INV-000132",
     amount: "2,536.00",
     payment: "2,536.00",
-    staues: "",
+    invoiceValues: {
+      qty: "4",
+      unit: "Item",
+      rate: "634",
+    },
   },
   {
     brandName: "Emile Fashion House",
@@ -69,7 +97,11 @@ const clients = [
     id: "INV-000174",
     amount: "7,675.00",
     payment: "5,675.00",
-    staues: "",
+    invoiceValues: {
+      qty: "2",
+      unit: "Item",
+      rate: "3,837.5",
+    },
   },
   {
     brandName: "Fabbolo",
@@ -78,7 +110,11 @@ const clients = [
     id: "INV-000192",
     amount: "605.00",
     payment: "605.00",
-    staues: "",
+    invoiceValues: {
+      qty: "1",
+      unit: "Item",
+      rate: "605",
+    },
   },
   {
     brandName: "FashionFeva",
@@ -87,7 +123,11 @@ const clients = [
     id: "INV-000111",
     amount: "2,498.00",
     payment: "2,498.00",
-    staues: "",
+    invoiceValues: {
+      qty: "3",
+      unit: "Item",
+      rate: "832.7",
+    },
   },
   {
     brandName: "Freya's Piece's",
@@ -96,7 +136,11 @@ const clients = [
     id: "INV-000112",
     amount: "9,603.00",
     payment: "9,603.00",
-    staues: "",
+    invoiceValues: {
+      qty: "1",
+      unit: "Item",
+      rate: "9,603",
+    },
   },
   {
     brandName: "Mumhood Maternity Wears",
@@ -106,7 +150,11 @@ const clients = [
     id: "INV-000191",
     amount: "18,968.00",
     payment: "17,968.00",
-    staues: "",
+    invoiceValues: {
+      qty: "12",
+      unit: "Item",
+      rate: "1,580.7",
+    },
   },
   {
     brandName: "Royal Fashion & Services",
@@ -116,7 +164,11 @@ const clients = [
     id: "INV-000102",
     amount: "6,749.00",
     payment: "4,749.00",
-    staues: "",
+    invoiceValues: {
+      qty: "5",
+      unit: "Item",
+      rate: "1,349.8",
+    },
   },
 ];
 
