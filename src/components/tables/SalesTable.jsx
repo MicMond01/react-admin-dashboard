@@ -287,7 +287,7 @@ export default function SalesTable({ importedArr, setImportedArr }) {
   };
 
   const handleNewWindow = (row) => {
-    console.log(row)
+    console.log(row);
     navigate(`/sales/InvoiceReceipt/${row.id}`);
   };
 
@@ -309,6 +309,19 @@ export default function SalesTable({ importedArr, setImportedArr }) {
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - importedArr.length) : 0;
+
+  // Calculation
+
+  const subTotalValue =
+    parseFloat(importedArr?.invoiceValues?.rate?.replace(/,/g, "")) *
+    parseFloat(importedArr?.invoiceValues?.qty.replace(/,/g, ""));
+
+  console.log(importedArr);
+
+  // const discountFig = 0.05 * subTotalValue;
+  // const vatFig = 0.1 * subTotalValue;
+  // const taxFig = 0.15 * subTotalValue;
+  // const grandTotal = subTotalValue + vatFig + taxFig - discountFig;
 
   return (
     <Box
@@ -339,6 +352,21 @@ export default function SalesTable({ importedArr, setImportedArr }) {
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
+
+                  const paymentFig = parseFloat(
+                    row?.payment?.replace(/,/g, "")
+                  );
+                  const subTotalValue =
+                    parseFloat(row?.invoiceValues?.rate?.replace(/,/g, "")) *
+                    parseFloat(row?.invoiceValues?.qty.replace(/,/g, ""));
+
+                  //console.log(importedArr);
+
+                  const discountFig = 0.05 * subTotalValue;
+                  const vatFig = 0.1 * subTotalValue;
+                  const taxFig = 0.15 * subTotalValue;
+                  const grandTotal =
+                    subTotalValue + vatFig + taxFig - discountFig;
 
                   return (
                     <TableRow
@@ -372,14 +400,26 @@ export default function SalesTable({ importedArr, setImportedArr }) {
                       <TableCell align="right">{row.date}</TableCell>
                       <TableCell align="right">{row.brandName}</TableCell>
                       <TableCell align="center">{row.supplies}</TableCell>
-                      <TableCell align="right">${row.amount}</TableCell>
-                      <TableCell align="right">${row.payment}</TableCell>
+                      <TableCell align="right">
+                        $
+                        {grandTotal
+                          .toFixed(2)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      </TableCell>
+                      <TableCell align="right">
+                        $
+                        {paymentFig
+                          .toFixed(2)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      </TableCell>
 
                       <TableCell
                         align="right"
                         sx={{
                           color:
-                            row.amount === row.payment
+                            paymentFig >= grandTotal
                               ? colors.greenAccent[600]
                               : colors.redAccent[300],
                         }}
@@ -393,7 +433,7 @@ export default function SalesTable({ importedArr, setImportedArr }) {
                             alignItems: "center",
                           }}
                         >
-                          {row.amount === row.payment ? "Paid" : "Overdue"}
+                          {paymentFig >= grandTotal ? "Paid" : "Overdue"}
                         </Box>
                       </TableCell>
                       <TableCell align="right" display="inline-flex">
@@ -403,7 +443,7 @@ export default function SalesTable({ importedArr, setImportedArr }) {
                             <DeleteIcon />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip title="new-windows">
+                        <Tooltip title="open receipt">
                           <IconButton onClick={() => handleNewWindow(row)}>
                             <OpenInNewIcon />
                           </IconButton>

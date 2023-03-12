@@ -82,16 +82,6 @@ export default function FormDialog({ open, setOpen, handleFormSubmit }) {
                 sx={{ gridColumn: "span 4" }}
               />
               <Controls.TextInput
-                label="Date"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.date}
-                type="date"
-                name="date"
-                error={errors?.date}
-                sx={{ gridColumn: "span 4" }}
-              />
-              <Controls.TextInput
                 label="Amount"
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -111,10 +101,54 @@ export default function FormDialog({ open, setOpen, handleFormSubmit }) {
                 error={errors?.payment}
                 sx={{ gridColumn: "span 4" }}
               />
+              <Controls.TextInput
+                label="Date"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.date}
+                type="date"
+                name="date"
+                error={errors?.date}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <Controls.TextInput
+                label="Quantity"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.quantity}
+                type="number"
+                name="quantity"
+                error={errors?.quantity}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <Controls.TextInput
+                label="Rate"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.rate}
+                type="number"
+                name="rate"
+                error={errors?.rate}
+                sx={{ gridColumn: "span 2" }}
+              />
+              <Controls.TextInput
+                label="Unit"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.unit}
+                name="unit"
+                error={errors?.unit}
+                sx={{ gridColumn: "span 2" }}
+              />
             </Box>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" color="secondary" variant="contained">
+              <Button
+                type="submit"
+                color="secondary"
+                variant="contained"
+                onClick={handleClose}
+              >
                 Submit
               </Button>
             </DialogActions>
@@ -130,6 +164,9 @@ const checkoutSchema = yup.object().shape({
   supplies: yup.string().required("required"),
   amount: yup.string().required("required"),
   payment: yup.string().required("required"),
+  quantity: yup.string().required("required"),
+  rate: yup.string().required("required"),
+  unit: yup.string().required("required"),
 });
 
 const initialValues = {
@@ -139,4 +176,7 @@ const initialValues = {
   id: "",
   amount: "",
   payment: "",
+  quantity: "",
+  rate: "",
+  unit: "Item",
 };

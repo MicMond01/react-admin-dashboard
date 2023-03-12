@@ -18,7 +18,7 @@ const clients = [
     date: "07/17/2023",
     id: "INV-000138",
     amount: "3,558.00",
-    payment: "3,558.00",
+    payment: "4,269.6",
     invoiceValues: {
       qty: "3",
       unit: "Item",
@@ -31,7 +31,7 @@ const clients = [
     date: "10/11/2002",
     id: "INV-000130",
     amount: "2,488.00",
-    payment: "1,200.00",
+    payment: "2,985.6",
     invoiceValues: {
       qty: "1",
       unit: "Item",
@@ -57,7 +57,7 @@ const clients = [
     date: "02/24/2020",
     id: "INV-000147",
     amount: "9,858.00",
-    payment: "9,858.00",
+    payment: "35,488.8",
     invoiceValues: {
       qty: "3",
       unit: "Item",
@@ -83,7 +83,7 @@ const clients = [
     date: "11/25/2017",
     id: "INV-000132",
     amount: "2,536.00",
-    payment: "2,536.00",
+    payment: "3,043.2",
     invoiceValues: {
       qty: "4",
       unit: "Item",
@@ -96,7 +96,7 @@ const clients = [
     date: "04/09/2003",
     id: "INV-000174",
     amount: "7,675.00",
-    payment: "5,675.00",
+    payment: "9,210.00",
     invoiceValues: {
       qty: "2",
       unit: "Item",
@@ -122,7 +122,7 @@ const clients = [
     date: "02/22/2001",
     id: "INV-000111",
     amount: "2,498.00",
-    payment: "2,498.00",
+    payment: "2,997.72",
     invoiceValues: {
       qty: "3",
       unit: "Item",
@@ -135,7 +135,7 @@ const clients = [
     date: "05/29/2009",
     id: "INV-000112",
     amount: "9,603.00",
-    payment: "9,603.00",
+    payment: "11,523.60",
     invoiceValues: {
       qty: "1",
       unit: "Item",
@@ -149,7 +149,7 @@ const clients = [
     date: "02/01/2003",
     id: "INV-000191",
     amount: "18,968.00",
-    payment: "17,968.00",
+    payment: "22,762.08",
     invoiceValues: {
       qty: "12",
       unit: "Item",
