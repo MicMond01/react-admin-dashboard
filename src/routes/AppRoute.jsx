@@ -49,7 +49,7 @@ const _route = [
     permission: ["user", "admin"],
   },
   {
-    path: "/sales",
+    path: "/",
     component: Sales,
     permission: ["user", "admin"],
   },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box, IconButton } from "@mui/material";
 // import React from "react";
@@ -17,13 +17,13 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import Breadcrumb from "./headers/Breadcrumb";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { renderToString } from "react-dom/server";
+import { useSharedState } from "../store";
 
 const InvoiceReceipt = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const [selectedInvoice, setSelectedInvoice] = useState({});
+  const [selectedInvoice, setSelectedInvoice] = useSharedState({});
 
   // console.log(selectedInvoice);
   const { id } = useParams();
@@ -34,10 +34,10 @@ const InvoiceReceipt = () => {
 
   useEffect(() => {
     getRow();
-  }, []);
+  }, [getRow]);
 
   // const nee = selectedInvoice?.amount;
-  const newAmount = parseFloat(selectedInvoice?.amount?.replace(/,/g, ""));
+  // const newAmount = parseFloat(selectedInvoice?.amount?.replace(/,/g, ""));
   const newPayment = parseFloat(selectedInvoice?.payment?.replace(/,/g, ""));
 
   const subTotalValue =
@@ -50,7 +50,6 @@ const InvoiceReceipt = () => {
   const grandTotal = subTotalValue + vatFig + taxFig - discountFig;
 
   const exportPdf = () => {
-
     const element = document.getElementById("printScreen");
 
     element.style.color = "black";
@@ -69,12 +68,28 @@ const InvoiceReceipt = () => {
   };
 
   return (
-    <Box m="20px" mt="80px">
+    <Box
+      m="20px"
+      mt="80px"
+      sx={{
+        [theme.breakpoints.down("md")]: {
+          m: "0px",
+          width: "80vw",
+        },
+        [theme.breakpoints.down("sm")]: {
+          // m: "5px",
+          width: "70vw",
+        },
+      }}
+    >
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           marginBottom: "20px",
+          [theme.breakpoints.down("md")]: {
+            marginTop: "80px",
+          },
         }}
       >
         <Breadcrumb id={id} />
@@ -96,7 +111,14 @@ const InvoiceReceipt = () => {
       </Box>
       <Box
         id="printScreen"
-        sx={{padding: "70px" }}
+        sx={{
+          padding: "70px",
+          [theme.breakpoints.down("md")]: {
+            padding: "5px",
+            // m: "5px",
+            // width: "100vw",
+          },
+        }}
       >
         <Box
           sx={{

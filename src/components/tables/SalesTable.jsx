@@ -48,6 +48,7 @@ function getComparator(order, orderBy) {
 // only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
 // with exampleArray.slice().sort(exampleComparator)
 function stableSort(array, comparator) {
+  // console.log(array);
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
@@ -169,7 +170,7 @@ EnhancedTableHead.propTypes = {
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
+  rowCount: PropTypes.number,
 };
 
 function EnhancedTableToolbar(props) {
@@ -287,7 +288,7 @@ export default function SalesTable({ importedArr, setImportedArr }) {
   };
 
   const handleNewWindow = (row) => {
-    console.log(row);
+    // console.log(row);
     navigate(`/sales/InvoiceReceipt/${row.id}`);
   };
 
@@ -312,9 +313,9 @@ export default function SalesTable({ importedArr, setImportedArr }) {
 
   // Calculation
 
-  const subTotalValue =
-    parseFloat(importedArr?.invoiceValues?.rate?.replace(/,/g, "")) *
-    parseFloat(importedArr?.invoiceValues?.qty.replace(/,/g, ""));
+  // const subTotalValue =
+  //   parseFloat(importedArr?.invoiceValues?.rate?.replace(/,/g, "")) *
+  //   parseFloat(importedArr?.invoiceValues?.qty.replace(/,/g, ""));
 
   console.log(importedArr);
 

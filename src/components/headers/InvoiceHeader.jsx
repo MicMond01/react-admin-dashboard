@@ -47,6 +47,7 @@ const InvoiceHeader = ({ handleFormSubmit, hideStatCard }) => {
           sx={{
             [theme.breakpoints.down("md")]: {
               pb: 4,
+              mt: "50px",
             },
           }}
         >

@@ -74,7 +74,7 @@ const Sidebar = () => {
     },
     {
       title: "Sales",
-      link: "/sales",
+      link: "/",
       icon: AccountBalanceWalletIcon,
       permission: ["user", "admin"],
     },

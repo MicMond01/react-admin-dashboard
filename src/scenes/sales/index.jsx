@@ -7,6 +7,7 @@ import { clients } from "../../data/index";
 import { useState } from "react";
 import { useEffect } from "react";
 import { v4 as uuid } from "uuid";
+import { useSharedState } from "../../store";
 
 const Sales = () => {
   const theme = useTheme();
@@ -18,7 +19,7 @@ const Sales = () => {
   const [total, setTotal] = useState(0);
   const [paymentTotal, setPaymentTotal] = useState(0);
   const [overdue, setOverdue] = useState(0);
-  const [importedArr, setImportedArr] = useState(clients);
+  const [importedArr, setImportedArr] = useSharedState();
   const [statsCard, setStatsCard] = useState(true);
   // let fig = 0;
 
@@ -68,8 +69,10 @@ const Sales = () => {
       m="20px"
       mt="80px"
       sx={{
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("md")]: {
           m: "5px",
+          width: "100vw",
+          mr: "55px",
         },
       }}
     >
@@ -116,8 +119,16 @@ const Sales = () => {
           />
         </Box>
       )}
-      {/* <Box mt="10px"></Box> */}
-      <SalesTable importedArr={importedArr} />
+      <Box
+        mt="10px"
+        sx={{
+          [theme.breakpoints.down("md")]: {
+            width: "75vw",
+          },
+        }}
+      >
+        <SalesTable importedArr={importedArr} />
+      </Box>
     </Box>
   );
 };
