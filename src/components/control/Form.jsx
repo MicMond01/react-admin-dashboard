@@ -6,9 +6,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Formik } from "formik";
-import { Controls } from "../control";
+import { Controls } from ".";
 
-import { tokens } from "./../../theme";
+import { tokens } from "../../theme";
 
 export default function FormDialog({ open, setOpen, handleFormSubmit }) {
   const theme = useTheme();
@@ -19,14 +19,6 @@ export default function FormDialog({ open, setOpen, handleFormSubmit }) {
   };
 
   const isNonMobile = useMediaQuery("(min-width:600px)");
-
-  // const handleFormSubmit = (values) => {
-  //   console.log(clients.push(values))
-  // };
-
-  // const handleChange = (event) => {
-  //   setPick(event.target.value);
-  // };
 
   return (
     <Dialog open={open} onClose={handleClose}>

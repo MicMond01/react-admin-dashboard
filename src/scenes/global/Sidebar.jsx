@@ -14,6 +14,7 @@ import BookIcon from "@mui/icons-material/Book";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import PsychologyRoundedIcon from "@mui/icons-material/PsychologyRounded";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 // import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -79,9 +80,9 @@ const Sidebar = () => {
       permission: ["user", "admin"],
     },
     {
-      title: "Proposal",
-      link: "/proposal",
-      icon: BookIcon,
+      title: "Calendar",
+      link: "/calendar",
+      icon: CalendarMonthIcon,
       permission: ["user", "admin"],
     },
     {

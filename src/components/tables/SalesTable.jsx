@@ -24,8 +24,9 @@ import { visuallyHidden } from "@mui/utils";
 import { useTheme } from "@mui/material";
 import { tokens } from "./../../theme";
 import { useNavigate } from "react-router-dom";
-
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import PopOver from "../PopOver";
+import { useState } from "react";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -59,6 +60,8 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
+
+// console.log(typeof stableSort);
 
 const headCells = [
   {
@@ -238,6 +241,17 @@ export default function SalesTable({ importedArr, setImportedArr }) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [popup, setPopup] = useState({
+    show: false, // initial values set to false and null
+    id: null,
+  });
+
+  const handleDeleteShow = (id) => {
+    setPopup({
+      show: true,
+      id,
+    });
+  };
 
   const navigate = useNavigate();
   const theme = useTheme();
@@ -249,6 +263,7 @@ export default function SalesTable({ importedArr, setImportedArr }) {
     setOrderBy(property);
   };
 
+  // console.log(typeof importedArr);
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelected = importedArr.map((n) => n.id);
@@ -279,6 +294,7 @@ export default function SalesTable({ importedArr, setImportedArr }) {
   };
 
   const handleDelete = (id) => {
+    // console.log(id);
     const previousData = [...importedArr];
     const index = previousData.findIndex((item) => item.id === id);
 
@@ -286,6 +302,17 @@ export default function SalesTable({ importedArr, setImportedArr }) {
       importedArr.splice(index, 1);
     }
   };
+
+  // const handleDeleteTrue = () => {
+  //   if (popup.show && popup.id) {
+  //     let filteredData = todos.filter((todo) => todo.id !== popup.id);
+  //     setToDos(filteredData);
+  //     setPopup({
+  //       show: false,
+  //       id: null,
+  //     });
+  //   }
+  // };
 
   const handleNewWindow = (row) => {
     // console.log(row);
@@ -310,19 +337,6 @@ export default function SalesTable({ importedArr, setImportedArr }) {
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - importedArr.length) : 0;
-
-  // Calculation
-
-  // const subTotalValue =
-  //   parseFloat(importedArr?.invoiceValues?.rate?.replace(/,/g, "")) *
-  //   parseFloat(importedArr?.invoiceValues?.qty.replace(/,/g, ""));
-
-  console.log(importedArr);
-
-  // const discountFig = 0.05 * subTotalValue;
-  // const vatFig = 0.1 * subTotalValue;
-  // const taxFig = 0.15 * subTotalValue;
-  // const grandTotal = subTotalValue + vatFig + taxFig - discountFig;
 
   return (
     <Box
@@ -479,6 +493,12 @@ export default function SalesTable({ importedArr, setImportedArr }) {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
+      {/* {popup.show && (
+        <PopOver
+          handleDelete={handleDelete}
+          // handleDeleteFalse={handleDeleteFalse}
+        />
+      )} */}
     </Box>
   );
 }

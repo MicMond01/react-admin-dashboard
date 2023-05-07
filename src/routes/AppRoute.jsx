@@ -11,7 +11,7 @@ const Projects = React.lazy(() => import("./../scenes/projects/index"));
 const Tasks = React.lazy(() => import("./../scenes/tasks/index"));
 const Leads = React.lazy(() => import("./../scenes/leads/index"));
 const Sales = React.lazy(() => import("./../scenes/sales/index"));
-const Proposal = React.lazy(() => import("./../scenes/proposal/index"));
+const Calendar = React.lazy(() => import("./../scenes/calendar/Calendar"));
 const Contracts = React.lazy(() => import("./../scenes/contracts/index"));
 const Messages = React.lazy(() => import("./../scenes/messages/index"));
 const Knowledgebase = React.lazy(() =>
@@ -54,8 +54,8 @@ const _route = [
     permission: ["user", "admin"],
   },
   {
-    path: "/proposal",
-    component: Proposal,
+    path: "/calendar",
+    component: Calendar,
     permission: ["user", "admin"],
   },
   {

@@ -6,7 +6,7 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import TaskCard from "./../../components/leadsCompo/ContactCard";
 import { columnsFromBackend } from "./../../components/leadsCompo/DroppableData";
-import Form from "./../../components/leadsCompo/Form";
+import Form from "../../components/control/Form";
 // import AddNewContact from "./../../components/leadsCompo/AddNewContact";
 
 const Container = styled.div`
@@ -98,11 +98,21 @@ const Leads = () => {
     newData.id = 76;
     newData.zipCode = 76;
 
-    // console.log(newData, result);
+    // console.log(newData);
     setColumns((prev) => ({
       ...prev,
       [selectedBtn]: { items: [...prev[selectedBtn].items, newData] },
     }));
+
+    if (
+      newData.type !== "" &&
+      newData.city !== "" &&
+      newData.email !== "" &&
+      newData.name !== "" &&
+      newData.phone !== ""
+    ) {
+      setOpen(false);
+    }
   };
 
   return (
