@@ -10,7 +10,6 @@ import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import PhoneCallbackIcon from "@mui/icons-material/PhoneCallback";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import BookIcon from "@mui/icons-material/Book";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 import PsychologyRoundedIcon from "@mui/icons-material/PsychologyRounded";

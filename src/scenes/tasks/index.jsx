@@ -4,15 +4,15 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { tokens } from "../../theme";
-import Form from "../../components/control/Form";
 import { todoHeaders } from "../../data";
 // import AddNewContact from "./../../components/leadsCompo/AddNewContact";
 import TaskCard from "./../../components/taskCompo/TaskCard";
 import TaskForm from "../../components/control/TaskForm";
+import StatsCard from "./../../components/headers/StatsCard";
 
 const Container = styled.div`
   display: flex;
-  margin-top: 75px;
+  margin-top: 40px;
   width: 90vw;
   overflow-x: scroll;
 `;
@@ -108,11 +108,10 @@ const Tasks = () => {
     // newData.zipCode = 76;
 
     // console.log(newData);
-    // setColumns((prev) => ({
-    //   ...prev,
-    //   [selectedBtn]: { items: [...prev[selectedBtn].items, newData] },
-    // }));
-
+    setColumns((prev) => ({
+      ...prev,
+      [selectedBtn]: { items: [...prev[selectedBtn].items, newData] },
+    }));
 
     if (
       newData.todo !== "" &&
@@ -127,89 +126,117 @@ const Tasks = () => {
   };
 
   return (
-    <DragDropContext
-      onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-    >
-      <Container>
-        <TaskColumnStyles>
-          {Object.entries(columns).map(([columnId, column], index) => {
-            return (
-              <Droppable key={columnId} droppableId={columnId}>
-                {(provided, snapshot) => (
-                  <Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        width: "300px",
-                        padding: "0 15px",
-                        height: "60px",
-                        borderRadius: "10px 10px 0 0",
-                        borderTop: `${column.border}`,
-                        bgcolor: colors.grey[800],
-                      }}
-                    >
-                      <Box>
-                        <Typography
-                          sx={{
-                            fontWeight: theme.typography.fontWeightMedium,
-                            fontSize: theme.typography.h5,
-                          }}
-                        >
-                          {column.title}
-                        </Typography>
+    <>
+      <Box
+        justifyContent="space-between"
+        gap="10px"
+        mt="5rem"
+        sx={{
+          display: "flex",
+          [theme.breakpoints.down("md")]: {
+            display: "grid",
+            gap: "10px",
+            width: "100vw",
+          },
+        }}
+      >
+        {Object.entries(columns).map(([columnId, column]) => {
+          return (
+            <StatsCard
+              key={columnId}
+              top={column.title}
+              span={column.items.length}
+              hValue={"h5"}
+              colorLine={column.color}
+            />
+          );
+        })}
+      </Box>
+
+      <DragDropContext
+        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+      >
+        <Container>
+          <TaskColumnStyles>
+            {Object.entries(columns).map(([columnId, column]) => {
+              return (
+                <Droppable key={columnId} droppableId={columnId}>
+                  {(provided, snapshot) => (
+                    <Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          width: "300px",
+                          padding: "0 15px",
+                          height: "60px",
+                          borderRadius: "10px 10px 0 0",
+                          borderTop: `${column.border}`,
+                          bgcolor: colors.grey[800],
+                        }}
+                      >
+                        <Box>
+                          <Typography
+                            sx={{
+                              fontWeight: theme.typography.fontWeightMedium,
+                              fontSize: theme.typography.h5,
+                            }}
+                          >
+                            {column.title}
+                          </Typography>
+                        </Box>
+                        <Box>
+                          <IconButton
+                            onClick={() =>
+                              handleClickOpen(
+                                column.title === "New"
+                                  ? "New"
+                                  : column.title === "In Progress"
+                                  ? "In Progress"
+                                  : column.title === "Testing"
+                                  ? "Testing"
+                                  : column.title === "Awaiting Feedback"
+                                  ? "Awaiting Feedback"
+                                  : "Completed"
+                              )
+                            }
+                            sx={{
+                              bgcolor: colors.redAccent[800],
+                              height: "25px",
+                              borderRadius: "5px",
+                            }}
+                          >
+                            <Typography>Add New</Typography>
+                          </IconButton>
+                        </Box>
+                        <Box open={open} position="absolute">
+                          <TaskForm
+                            open={open}
+                            setOpen={setOpen}
+                            taskStatus={taskStatus}
+                            handleFormSubmit={handleFormSubmit}
+                          />
+                        </Box>
                       </Box>
-                      <Box>
-                        <IconButton
-                          onClick={() =>
-                            handleClickOpen(
-                              column.title === "New"
-                                ? "New"
-                                : column.title === "In Progress"
-                                ? "In Progress"
-                                : column.title === "Testing"
-                                ? "Testing"
-                                : column.title === "Awaiting Feedback"
-                                ? "Awaiting Feedback"
-                                : "Completed"
-                            )
-                          }
-                          sx={{
-                            bgcolor: colors.redAccent[800],
-                            height: "25px",
-                            borderRadius: "5px",
-                          }}
-                        >
-                          <Typography>Add New</Typography>
-                        </IconButton>
-                      </Box>
-                      <Box open={open} position="absolute">
-                        <TaskForm
-                          open={open}
-                          setOpen={setOpen}
-                          taskStatus={taskStatus}
-                          handleFormSubmit={handleFormSubmit}
-                        />
-                      </Box>
+                      <TaskList
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                      >
+                        {column.items.map((item, index) => (
+                          <TaskCard key={index} index={index} item={item} />
+                        ))}
+                        {provided.placeholder}
+                      </TaskList>
                     </Box>
-                    <TaskList
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                    >
-                      {column.items.map((item, index) => (
-                        <TaskCard key={index} index={index} item={item} />
-                      ))}
-                      {provided.placeholder}
-                    </TaskList>
-                  </Box>
-                )}
-              </Droppable>
-            );
-          })}
-        </TaskColumnStyles>
-      </Container>
-    </DragDropContext>
+                  )}
+                </Droppable>
+              );
+            })}
+          </TaskColumnStyles>
+        </Container>
+      </DragDropContext>
+    </>
   );
 };
 

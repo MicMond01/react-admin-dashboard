@@ -142,21 +142,25 @@ const Sales = () => {
             top={"$" + total.toLocaleString()}
             span={"Invoices " + lengt}
             colorLine={colors.grey[100]}
+            hValue={"h3"}
           />
           <StatsCard
             top={"$" + paymentTotal.toLocaleString()}
             span={"Payments"}
             colorLine={colors.greenAccent[400]}
+            hValue={"h3"}
           />
           <StatsCard
             top={"$0.00"}
             span={"Due (0)"}
             colorLine={colors.blueAccent[400]}
+            hValue={"h3"}
           />
           <StatsCard
             top={"$" + overdue.toLocaleString()}
             span={"Overdue "}
             colorLine={colors.redAccent[400]}
+            hValue={"h3"}
           />
         </Box>
       )}

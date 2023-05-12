@@ -27,14 +27,14 @@ const InvoiceReceipt = () => {
 
   // console.log(selectedInvoice);
   const { id } = useParams();
-  const getRow = () => {
-    const row = clients.find((item) => item.id === id);
-    setSelectedInvoice(row);
-  };
 
   useEffect(() => {
+    const getRow = () => {
+      const row = clients.find((item) => item.id === id);
+      setSelectedInvoice(row);
+    };
     getRow();
-  }, [getRow]);
+  }, [id, setSelectedInvoice]);
 
   // const nee = selectedInvoice?.amount;
   // const newAmount = parseFloat(selectedInvoice?.amount?.replace(/,/g, ""));

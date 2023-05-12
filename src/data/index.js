@@ -372,26 +372,31 @@ const todoHeaders = {
     title: "New",
     items: todoNew,
     border: "2px #ecf1f3 solid",
+    color: "#ecf1f3",
   },
   inProgress: {
     title: "In Progress",
     items: todoProgress,
     border: "2px #20aee3 solid",
+    color: "#20aee3",
   },
   testing: {
     title: "Testing",
     items: todoTesting,
     border: "2px #6772e5 solid",
+    color: "#6772e5",
   },
   awaiting: {
     title: "Awaiting Feedback",
     items: todoAwaiting,
     border: "2px #ff9041 solid",
+    color: "#ff9041",
   },
   completed: {
     title: "Completed",
     items: todoCompleted,
     border: "2px #24d2b5 solid",
+    color: "#24d2b5",
   },
 };
 

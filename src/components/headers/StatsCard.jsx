@@ -3,7 +3,7 @@ import React from "react";
 import { Typography } from "@mui/material/";
 import { tokens } from "../../theme";
 
-const StatsCard = ({ top, span, colorLine }) => {
+const StatsCard = ({ top, span, colorLine, hValue }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -21,7 +21,7 @@ const StatsCard = ({ top, span, colorLine }) => {
         },
       }}
     >
-      <Typography variant="h3">{top}</Typography>
+      <Typography variant={hValue}>{top}</Typography>
       <Typography mt="5px" color={colors.grey[200]}>
         {span}
       </Typography>
