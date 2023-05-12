@@ -172,4 +172,227 @@ const clients = [
   },
 ];
 
-export { clients };
+const todoNew = [
+  {
+    id: 1,
+    todo: "Finalize event theme",
+    priority: "Normal",
+    project: "Staff Training",
+    status: "NEW",
+    created: "2021-02-22",
+    dueDate: "--",
+  },
+  {
+    id: 2,
+    todo: "Initial design concepts & mockups",
+    project: "Mobile banking app development",
+    priority: "Urgent",
+    status: "NEW",
+    created: "2021-02-22",
+    dueDate: "--",
+  },
+  {
+    id: 3,
+    todo: " Create 2 more samples    ",
+    project: "Cereal box design",
+    priority: "Normal",
+    status: "NEW",
+    created: " 08-14-2022",
+    dueDate: "08-14-2022",
+  },
+  {
+    id: 4,
+    todo: " Logo designs x 3",
+    project: "Logo design",
+    priority: "Urgent",
+    status: "NEW",
+    created: "08-09-2022",
+    dueDate: "--",
+  },
+  {
+    id: 5,
+    todo: " Create 2 more samples",
+    project: "Weight loss mobile app",
+    priority: "Normal",
+    status: "NEW",
+    created: "08-11-2022",
+    dueDate: "--",
+  },
+  {
+    id: 6,
+    todo: "Initial design concepts & mockups",
+    project: "Mobile banking app development",
+    priority: "Urgent",
+    status: "NEW",
+    created: "08-13-2022",
+    dueDate: "--",
+  },
+  {
+    id: 7,
+    todo: " Blog Post -1 (5 Ways to protect leather)",
+    project: "Blog Post - 5 Ways to protect leather",
+    priority: "Urgent",
+    status: "NEW",
+    created: "08-12-2022",
+    dueDate: "--",
+  },
+  {
+    id: 8,
+    todo: " Blog Post -1 (10 ways to save money on your next holiday)",
+    project: "Blog Post - 10 ways to save money on your next holiday",
+    priority: "Urgent",
+    status: "NEW",
+    created: "08-12-2022",
+    dueDate: " 08-12-2022",
+  },
+];
+
+const todoProgress = [
+  {
+    id: 9,
+    todo: " Back label design",
+    project: "Fruit juice bottle label design",
+    priority: "Normal",
+    status: "In Progress",
+    created: "08-09-2022",
+    dueDate: "08-09-2022",
+  },
+  {
+    id: 10,
+    todo: "Additions Mockup designs",
+    project: "Weight loss mobile app",
+    priority: "Urgent",
+    status: "In Progress",
+    created: "08-11-2022",
+    dueDate: "--",
+  },
+];
+
+const todoTesting = [
+  {
+    id: 11,
+    todo: "Initial Draft",
+    project: "Cereal box design",
+    priority: "Normal",
+    status: "Testing",
+    created: "08-09-2022",
+    dueDate: "--",
+  },
+  {
+    id: 12,
+    todo: " Initial Draft",
+    project: "Weight loss mobile app",
+    priority: "Normal",
+    status: "Testing",
+    created: "08-11-2022",
+    dueDate: "--",
+  },
+  {
+    id: 13,
+    todo: " Initial Draftt",
+    project: " Content - Blog Posts x 10",
+    priority: "Urgent",
+    status: "Testing",
+    created: "08-12-2022",
+    dueDate: "--",
+  },
+  {
+    id: 14,
+    todo: " Initial Draftt",
+    project: "Mobile banking app development",
+    priority: "Normal",
+    status: "Testing",
+    created: "08-14-2022",
+    dueDate: "08-14-2022",
+  },
+  {
+    id: 15,
+    todo: " Initial Draftt",
+    project: "Wordpress theme design",
+    priority: "Normal",
+    status: "Testing",
+    created: "08-14-2022",
+    dueDate: "--",
+  },
+];
+
+const todoAwaiting = [
+  {
+    id: 16,
+    todo: " Initial Draftt",
+    project: "Logo design",
+    priority: "Normal",
+    status: "Awaiting Feedback",
+    created: "08-09-2022",
+    dueDate: "--",
+  },
+  {
+    id: 17,
+    todo: "Back label design",
+    project: " Cereal box design",
+    priority: "Normal",
+    status: "Awaiting Feedback",
+    created: "08-09-2022",
+    dueDate: "--",
+  },
+  {
+    id: 18,
+    todo: " Blog Post - 2 (How to to protect leather goods)",
+    project: "Blog Post - 10 ways to save money on your next holiday",
+    priority: "Normal",
+    status: "Awaiting Feedback",
+    created: "08-12-2022",
+    dueDate: "--",
+  },
+];
+
+const todoCompleted = [
+  {
+    id: 19,
+    todo: "Initial Draft",
+    project: "Fruit juice bottle label design",
+    priority: "Normal",
+    status: "Completed",
+    created: "08-09-2022",
+    dueDate: "--",
+  },
+  {
+    id: 20,
+    todo: " Blog Post - 2 (How to to protect leather goods)",
+    project: "Blog Post - 5 Ways to protect leather",
+    priority: "Normal",
+    status: "Completed",
+    created: "08-12-2022",
+    dueDate: "--",
+  },
+];
+
+const todoHeaders = {
+  new: {
+    title: "New",
+    items: todoNew,
+    border: "2px #ecf1f3 solid",
+  },
+  inProgress: {
+    title: "In Progress",
+    items: todoProgress,
+    border: "2px #20aee3 solid",
+  },
+  testing: {
+    title: "Testing",
+    items: todoTesting,
+    border: "2px #6772e5 solid",
+  },
+  awaiting: {
+    title: "Awaiting Feedback",
+    items: todoAwaiting,
+    border: "2px #ff9041 solid",
+  },
+  completed: {
+    title: "Completed",
+    items: todoCompleted,
+    border: "2px #24d2b5 solid",
+  },
+};
+
+export { clients, todoHeaders };

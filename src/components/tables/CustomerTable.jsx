@@ -19,14 +19,13 @@ import Tooltip from "@mui/material/Tooltip";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EmailIcon from "@mui/icons-material/Email";
+import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useTheme } from "@mui/material";
-import { tokens } from "./../../theme";
-import { useNavigate } from "react-router-dom";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-// import PopOver from "../PopOver";
-// import { useState } from "react";
+import { tokens } from "../../theme";
+// import { convertLength } from "@mui/material/styles/cssUtils";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -67,48 +66,42 @@ const headCells = [
   {
     id: "name",
     numeric: false,
-    disablePadding: true,
-    label: "ID",
-  },
-  {
-    id: "date",
-    numeric: true,
     disablePadding: false,
-    label: "Date",
+    label: "Name",
   },
   {
-    id: "company",
-    numeric: true,
+    id: "cient",
+    numeric: false,
     disablePadding: false,
     label: "Company Name",
   },
   {
-    id: "supplies",
-    numeric: true,
+    id: "Email",
+    numeric: false,
     disablePadding: false,
-    label: "Supplies",
+    label: "Email",
   },
   {
-    id: "amount",
+    id: "phone",
     numeric: true,
     disablePadding: false,
-    label: "Amount",
+    label: "Phone",
   },
   {
-    id: "payment",
+    id: "city",
     numeric: true,
     disablePadding: false,
-    label: "Payment",
+    label: "City",
   },
   {
-    id: "status",
+    id: "domain",
     numeric: true,
     disablePadding: false,
-    label: "Status",
+    label: "Domain",
   },
   {
     id: "action",
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: "Action",
   },
@@ -234,9 +227,12 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function SalesTable({
+export default function CustomerTable({
   importedArr,
+  handleClickOpen,
   HandleOpenPopOver,
+  isLoaded,
+  error,
   searchFunc,
 }) {
   const [order, setOrder] = React.useState("asc");
@@ -246,7 +242,6 @@ export default function SalesTable({
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -286,11 +281,6 @@ export default function SalesTable({
     setSelected(newSelected);
   };
 
-  const handleNewWindow = (row) => {
-    // console.log(row);
-    navigate(`/sales/InvoiceReceipt/${row.id}`);
-  };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -310,7 +300,11 @@ export default function SalesTable({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - importedArr.length) : 0;
 
-
+  if (error) {
+    return <>{error.message}</>;
+  } else if (!isLoaded) {
+    return <>loading...</>;
+  } else {
     return (
       <Box
         sx={{
@@ -344,21 +338,6 @@ export default function SalesTable({
                     const isItemSelected = isSelected(row.id);
                     const labelId = `enhanced-table-checkbox-${index}`;
 
-                    const paymentFig = parseFloat(
-                      row?.payment?.replace(/,/g, "")
-                    );
-                    const subTotalValue =
-                      parseFloat(row?.invoiceValues?.rate?.replace(/,/g, "")) *
-                      parseFloat(row?.invoiceValues?.qty.replace(/,/g, ""));
-
-                    //console.log(importedArr);
-
-                    const discountFig = 0.05 * subTotalValue;
-                    const vatFig = 0.1 * subTotalValue;
-                    const taxFig = 0.15 * subTotalValue;
-                    const grandTotal =
-                      subTotalValue + vatFig + taxFig - discountFig;
-
                     return (
                       <TableRow
                         hover
@@ -384,61 +363,65 @@ export default function SalesTable({
                           scope="row"
                           padding="none"
                         >
-                          {row.id}
-                        </TableCell>
-
-                        {/* <TableCell align="right">{row.id}</TableCell> */}
-                        <TableCell align="right">{row.date}</TableCell>
-                        <TableCell align="right">{row.brandName}</TableCell>
-                        <TableCell align="center">{row.supplies}</TableCell>
-                        <TableCell align="right">
-                          $
-                          {grandTotal
-                            .toFixed(2)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                        </TableCell>
-                        <TableCell align="right">
-                          $
-                          {paymentFig
-                            .toFixed(2)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                        </TableCell>
-
-                        <TableCell
-                          align="right"
-                          sx={{
-                            color:
-                              paymentFig >= grandTotal
-                                ? colors.greenAccent[600]
-                                : colors.redAccent[300],
-                          }}
-                        >
                           <Box
                             sx={{
-                              bgcolor: colors.grey[600],
-                              borderRadius: "10px",
-                              display: "center",
-                              justifyContent: "center",
+                              display: "flex",
                               alignItems: "center",
                             }}
                           >
-                            {paymentFig >= grandTotal ? "Paid" : "Overdue"}
+                            <Box
+                              sx={{
+                                borderRadius: "50%",
+                                bgcolor: colors.grey[200],
+                                width: "2rem",
+                                height: "2rem",
+                                marginRight: "1rem",
+                              }}
+                            >
+                              <img
+                                className="img-api"
+                                src={row.image}
+                                alt="profile"
+                              />
+                            </Box>
+                            {` ${row.firstName} ${row.lastName}`}
                           </Box>
                         </TableCell>
-                        <TableCell align="right" display="inline-flex">
+
+                        {/* <TableCell align="right">{row.id}</TableCell> */}
+                        <TableCell align="left">{row?.company?.name}</TableCell>
+                        <TableCell align="left">{row?.email}</TableCell>
+                        <TableCell align="right">{row?.phone}</TableCell>
+                        <TableCell align="right">
+                          {row?.address?.city}
+                        </TableCell>
+                        <TableCell align="right">{row?.domain}</TableCell>
+                        <TableCell align="center" display="inline-flex">
+                          <Tooltip title="Edit">
+                            {/* here */}
+                            <IconButton>
+                              <NoteAltIcon
+                                sx={{ color: colors.greenAccent[300] }}
+                              />
+                            </IconButton>
+                          </Tooltip>
                           <Tooltip title="Delete">
                             {/* here */}
+                            {/* <IconButton onClick={() => handleDelete(row.id)}> */}
+                            {/* () => openPopOver(row.id) */}
                             <IconButton
                               onClick={() => HandleOpenPopOver(row.id)}
                             >
-                              <DeleteIcon />
+                              <DeleteIcon
+                                sx={{ color: colors.redAccent[300] }}
+                              />
                             </IconButton>
                           </Tooltip>
-                          <Tooltip title="open receipt">
-                            <IconButton onClick={() => handleNewWindow(row)}>
-                              <OpenInNewIcon />
+                          <Tooltip title="send an email">
+                            <IconButton
+                              onClick={() => handleClickOpen(row.email)}
+                            >
+                              <EmailIcon />
                             </IconButton>
                           </Tooltip>
                         </TableCell>
@@ -471,6 +454,13 @@ export default function SalesTable({
           control={<Switch checked={dense} onChange={handleChangeDense} />}
           label="Dense padding"
         />
+        {/* {popup.show && (
+        <PopOver
+          handleDelete={handleDelete}
+          // handleDeleteFalse={handleDeleteFalse}
+        />
+      )} */}
       </Box>
     );
+  }
 }

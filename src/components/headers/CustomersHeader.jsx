@@ -7,8 +7,6 @@ import Link from "@mui/material/Link";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import TimelineIcon from "@mui/icons-material/Timeline";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AddIcon from "@mui/icons-material/Add";
 import FormDialog from "../FormDialog";
 // import StatsCard from "./StatsCard";
@@ -17,12 +15,7 @@ import FormDialog from "../FormDialog";
 //   console.info("You clicked a breadcrumb.");
 // }
 
-const InvoiceHeader = ({
-  handleFormSubmit,
-  hideStatCard,
-  searchValue,
-  setSearchValue,
-}) => {
+const CustomersHeader = ({ handleFormSubmit, searchValue, setSearchValue }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -57,7 +50,7 @@ const InvoiceHeader = ({
           }}
         >
           <Typography variant="h3" color={colors.blueAccent[400]}>
-            Invoices
+            Customers
           </Typography>
           <Box>
             <Breadcrumbs
@@ -68,15 +61,7 @@ const InvoiceHeader = ({
                 HOME
               </Link>
               <Link underline="hover" color="inherit" href="#">
-                SALES
-              </Link>
-              <Link
-                underline="hover"
-                color="text.primary"
-                href="#"
-                aria-current="page"
-              >
-                INVOICES
+                Customers
               </Link>
             </Breadcrumbs>
           </Box>
@@ -88,41 +73,13 @@ const InvoiceHeader = ({
             borderRadius="3px"
           >
             <InputBase
-              sx={{ ml: 2, width: 80 }}
+              sx={{ ml: 2, width: "100%" }}
               placeholder="Search"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
             <IconButton type="button" sx={{ p: 1 }}>
               <SearchIcon />
-            </IconButton>
-          </Box>
-          <Box
-            width="40px"
-            hieght="30px"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            backgroundColor={colors.grey[800]}
-            ml="10px"
-            borderRadius="3px"
-          >
-            <IconButton onClick={hideStatCard}>
-              <TimelineIcon />
-            </IconButton>
-          </Box>
-          <Box
-            width="40px"
-            hieght="30px"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            backgroundColor={colors.grey[800]}
-            ml="10px"
-            borderRadius="3px"
-          >
-            <IconButton>
-              <FilterAltIcon />
             </IconButton>
           </Box>
           <Box
@@ -153,4 +110,4 @@ const InvoiceHeader = ({
   );
 };
 
-export default InvoiceHeader;
+export default CustomersHeader;

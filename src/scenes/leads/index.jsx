@@ -4,10 +4,10 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { tokens } from "../../theme";
-import TaskCard from "./../../components/leadsCompo/ContactCard";
 import { columnsFromBackend } from "./../../components/leadsCompo/DroppableData";
 import Form from "../../components/control/Form";
 // import AddNewContact from "./../../components/leadsCompo/AddNewContact";
+import TaskCard from "./../../components/leadsCompo/ContactCard";
 
 const Container = styled.div`
   display: flex;

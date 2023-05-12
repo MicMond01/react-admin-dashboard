@@ -7,6 +7,7 @@ import { clients } from "../../data/index";
 import { useState } from "react";
 import { useEffect } from "react";
 import { v4 as uuid } from "uuid";
+import PopOver from "../../components/PopOver";
 
 const Sales = () => {
   const theme = useTheme();
@@ -20,7 +21,13 @@ const Sales = () => {
   const [overdue, setOverdue] = useState(0);
   const [importedArr, setImportedArr] = useState(clients);
   const [statsCard, setStatsCard] = useState(true);
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [deleteId, setDeleteId] = useState();
   // let fig = 0;
+
+  // Search State
+  const [searchValue, setSearchValue] = useState("");
+  const [searchParam] = useState(["brandName", "supplies"]);
 
   const arrItem = clients.map((item) => item);
   const lengt = arrItem.length;
@@ -63,6 +70,39 @@ const Sales = () => {
     setStatsCard(!statsCard);
   };
 
+  const HandleOpenPopOver = (id) => {
+    setOpenPopUp(true);
+    setDeleteId(id);
+  };
+
+  const HandleClosePopOver = () => {
+    setOpenPopUp(false);
+  };
+
+  const handleDelete = () => {
+    // console.log(id);
+    const previousData = [...importedArr];
+    const index = previousData.findIndex((item) => item.id === deleteId);
+
+    if (index > -1) {
+      importedArr.splice(index, 1);
+    }
+    setOpenPopUp(false);
+  };
+
+  // Filter the table
+  function searchFunc(items) {
+    return items.filter((item) => {
+      return searchParam.some((newItem) => {
+        return (
+          item[newItem]
+            .toString()
+            .toLowerCase()
+            .indexOf(searchValue.toLowerCase()) > -1
+        );
+      });
+    });
+  }
 
   return (
     <Box
@@ -80,6 +120,7 @@ const Sales = () => {
         importedArr={importedArr}
         handleFormSubmit={handleFormSubmit}
         hideStatCard={hideStatCard}
+        setSearchValue={setSearchValue}
 
         // setImportedArr={setImportedArr}
       />
@@ -127,8 +168,18 @@ const Sales = () => {
           },
         }}
       >
-        <SalesTable importedArr={importedArr} />
+        <SalesTable
+          HandleOpenPopOver={HandleOpenPopOver}
+          importedArr={importedArr}
+          searchFunc={searchFunc}
+        />
       </Box>
+      {openPopUp && (
+        <PopOver
+          handleDelete={handleDelete}
+          HandleClosePopOver={HandleClosePopOver}
+        />
+      )}
     </Box>
   );
 };

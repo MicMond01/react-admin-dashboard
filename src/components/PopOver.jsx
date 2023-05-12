@@ -1,5 +1,4 @@
 import React from "react";
-import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material";
@@ -7,25 +6,9 @@ import { useTheme } from "@mui/material";
 import { Box } from "@mui/material";
 import { tokens } from "../theme";
 
-const PopOver = ({ handleDelete }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
+const PopOver = ({ handleDelete, HandleClosePopOver }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-
-  //   const theme = useTheme();
-  //   const colors = tokens(theme.palette.mode);
 
   return (
     <Box
@@ -55,19 +38,34 @@ const PopOver = ({ handleDelete }) => {
           bgcolor: colors.blueAccent[900],
           zIndex: "999",
           padding: "1.5rem",
+          [theme.breakpoints.down("md")]: {
+            width: "50vw",
+            height: "30vh",
+            padding: "2rem",
+          },
         }}
       >
         <Typography
-          sx={{ color: "#868e96 ", fontWeight: "500", fontSize: "22px" }}
+          sx={{ color: "#868e96 ", fontWeight: "900", fontSize: "22px" }}
         >
-          The content of the Popover.
+          Delete Item
         </Typography>
-        <Typography sx={{}}>Are you sure you wan to delete?</Typography>
+        <Typography
+          sx={{
+            fontSize: "12px",
+          }}
+        >
+          Are you sure?
+        </Typography>
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             padding: "1.5rem",
+            gap: "1rem",
+            [theme.breakpoints.down("md")]: {
+              padding: "0.1rem",
+            },
           }}
         >
           <Button
@@ -92,6 +90,7 @@ const PopOver = ({ handleDelete }) => {
               color: "#6c757d",
               textTransform: "none",
             }}
+            onClick={HandleClosePopOver}
           >
             Close
           </Button>
@@ -107,6 +106,10 @@ const PopOver = ({ handleDelete }) => {
           top: "0",
           left: "0",
           opacity: "0.1",
+          [theme.breakpoints.down("md")]: {
+            width: "100vw",
+            height: "100vh",
+          },
         }}
       ></Box>
     </Box>
