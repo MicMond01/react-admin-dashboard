@@ -7,19 +7,18 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 function handleClick(event) {
   event.preventDefault();
-  console.info("You clicked a breadcrumb.");
 }
 
-export default function Breadcrumb({ id }) {
+export default function Breadcrumb({ id, title, name }) {
   const breadcrumbs = [
     <Link
       underline="hover"
-      key="1"
+      key="2"
       color="inherit"
       href="#"
       onClick={handleClick}
     >
-      HOME
+      {title}
     </Link>,
     <Link
       underline="hover"
@@ -28,16 +27,7 @@ export default function Breadcrumb({ id }) {
       href="#"
       onClick={handleClick}
     >
-      SALES
-    </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      color="inherit"
-      href="#"
-      onClick={handleClick}
-    >
-      INVOICES
+      {name}
     </Link>,
     <Typography key="3" color="text.primary">
       {id}
@@ -45,7 +35,7 @@ export default function Breadcrumb({ id }) {
   ];
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ marginBottom: "1rem" }}>
       <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"

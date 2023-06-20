@@ -9,6 +9,7 @@ import { todoHeaders } from "../../data";
 import TaskCard from "./../../components/taskCompo/TaskCard";
 import TaskForm from "../../components/control/TaskForm";
 import StatsCard from "./../../components/headers/StatsCard";
+import Breadcrumb from "./../../components/headers/Breadcrumb";
 
 const Container = styled.div`
   display: flex;
@@ -126,11 +127,18 @@ const Tasks = () => {
   };
 
   return (
-    <>
+    <Box
+      style={{
+        marginTop: "80px",
+      }}
+    >
+      <Box>
+        <Breadcrumb name="Task-manager" title="Home" />
+      </Box>
       <Box
         justifyContent="space-between"
         gap="10px"
-        mt="5rem"
+        mt="1rem"
         sx={{
           display: "flex",
           [theme.breakpoints.down("md")]: {
@@ -161,7 +169,7 @@ const Tasks = () => {
             {Object.entries(columns).map(([columnId, column]) => {
               return (
                 <Droppable key={columnId} droppableId={columnId}>
-                  {(provided, snapshot) => (
+                  {(provided) => (
                     <Box>
                       <Box
                         sx={{
@@ -236,7 +244,7 @@ const Tasks = () => {
           </TaskColumnStyles>
         </Container>
       </DragDropContext>
-    </>
+    </Box>
   );
 };
 

@@ -5,15 +5,15 @@ import MainApp from "./../pages/MainApp";
 import Register from "./../pages/Register";
 import Login from "./../pages/Login";
 
-const Dashboard = React.lazy(() => import("./../scenes/dashboard/index"));
+const Error404 = React.lazy(() => import("./../scenes/Error/Error404"));
+const Dashboard = React.lazy(() => import("./../scenes/Dashboard-saas/index"));
 const Customers = React.lazy(() => import("../scenes/customers/index"));
-const Projects = React.lazy(() => import("./../scenes/projects/index"));
+const FileManager = React.lazy(() => import("./../scenes/FileManager/index"));
 const Tasks = React.lazy(() => import("./../scenes/tasks/index"));
 const Leads = React.lazy(() => import("./../scenes/leads/index"));
 const Sales = React.lazy(() => import("./../scenes/sales/index"));
 const Calendar = React.lazy(() => import("./../scenes/calendar/Calendar"));
 const Contracts = React.lazy(() => import("./../scenes/contracts/index"));
-const Messages = React.lazy(() => import("./../scenes/messages/index"));
 const Knowledgebase = React.lazy(() =>
   import("./../scenes/knowledgebase/index")
 );
@@ -23,6 +23,11 @@ const InvoiceReceipt = React.lazy(() =>
 
 const type = "admin";
 const _route = [
+  {
+    path: "/",
+    component: Dashboard,
+    permission: ["user", "admin"],
+  },
   {
     path: "/dashboard",
     component: Dashboard,
@@ -34,8 +39,8 @@ const _route = [
     permission: ["user", "admin"],
   },
   {
-    path: "/projects",
-    component: Projects,
+    path: "/file-manager",
+    component: FileManager,
     permission: ["user", "admin"],
   },
   {
@@ -49,7 +54,7 @@ const _route = [
     permission: ["user", "admin"],
   },
   {
-    path: "/",
+    path: "/sales",
     component: Sales,
     permission: ["user", "admin"],
   },
@@ -61,11 +66,6 @@ const _route = [
   {
     path: "/contracts",
     component: Contracts,
-    permission: ["user", "admin"],
-  },
-  {
-    path: "/messages",
-    component: Messages,
     permission: ["user", "admin"],
   },
   {
@@ -84,6 +84,7 @@ const AppRoute = () => {
   return (
     <React.Suspense fallback={<Loader />}>
       <Routes>
+        <Route path="*" element={<Error404 />} />
         <Route path="/" element={<MainApp />}>
           {_route.map(
             (item, index) =>

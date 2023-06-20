@@ -6,6 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Formik } from "formik";
+import PropTypes from "prop-types";
 import { CalenderControls, Controls } from ".";
 
 import { tokens } from "../../theme";
@@ -36,14 +37,7 @@ export default function TaskForm({
         initialValues={initialValues}
         validationSchema={checkoutSchema}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-        }) => (
+        {({ values, errors, handleBlur, handleChange, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <Box
               m="20px"
@@ -121,7 +115,7 @@ export default function TaskForm({
                   // sx={{ gridColumn: "span 2" }}
                 />
                 <CalenderControls.CalendarInput
-                  label="deuDate"
+                  label="Deu Date"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.dueDate}
@@ -159,4 +153,11 @@ const initialValues = {
   priority: "",
   created: "",
   dueDate: "",
+};
+
+TaskForm.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+  taskStatus: PropTypes.string.isRequired,
 };

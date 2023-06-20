@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import PopOver from "../../components/PopOver";
+import React from "react";
 
 const Sales = () => {
   const theme = useTheme();
