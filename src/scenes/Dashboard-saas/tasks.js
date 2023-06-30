@@ -81,7 +81,7 @@ const TotalSellongProduct = () => {
                         <td>
                           <h5 className="text-truncate font-size-14 mb-1">
                             <Link to="#" className="text-dark">
-                              Entkreis Saas Dashboard
+                              Sales Dashboard
                             </Link>
                           </h5>
                           <p className="text-muted mb-0">Assigned to Mark</p>
