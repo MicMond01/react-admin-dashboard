@@ -8,7 +8,7 @@ import {
 } from "reactstrap"
 
 
-const RecentFile = props => {
+const RecentFile = () => {
   const recentfile = [
     {
       id: 1,

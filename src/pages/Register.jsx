@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 // import Header from "../../components/Header";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Controls } from "../components/control";
 import { Link } from "react-router-dom";
 import { Typography } from "@mui/material";
@@ -39,7 +39,6 @@ const Form = () => {
           {({
             values,
             errors,
-            touched,
             handleBlur,
             handleChange,
             handleSubmit,

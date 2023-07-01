@@ -121,10 +121,10 @@ const Leads = () => {
     >
       <Container>
         <TaskColumnStyles>
-          {Object.entries(columns).map(([columnId, column], index) => {
+          {Object.entries(columns).map(([columnId, column]) => {
             return (
               <Droppable key={columnId} droppableId={columnId}>
-                {(provided, snapshot) => (
+                {(provided) => (
                   <Box>
                     <Box
                       sx={{

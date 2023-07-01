@@ -63,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = ({ handleDrawerOpen, toggleMobileDrawer, openSideBar }) => {
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState();
   const colorMode = useContext(ColorModeContext);
 
   const [anchorEl, setAnchorEl] = React.useState(null);

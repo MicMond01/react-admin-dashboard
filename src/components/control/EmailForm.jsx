@@ -117,10 +117,8 @@ export default function EmailForm({
         {({
           values,
           errors,
-          touched,
           handleBlur,
           handleChange,
-          handleSubmit,
         }) => (
           <form>
             <Box

@@ -350,7 +350,7 @@ const InvoiceReceipt = () => {
               }}
               fontWeight={theme.typography.fontWeightBold}
             >
-              Discount<small variant="body2"> (5.00%)</small>
+              Discount<Typography variant="body2"> (5.00%)</Typography>
             </Typography>
             <Typography>
               -$
@@ -373,7 +373,7 @@ const InvoiceReceipt = () => {
               }}
               fontWeight={theme.typography.fontWeightBold}
             >
-              VAT<small variant="body2"> (10.00%)</small>
+              VAT<Typography variant="body2"> (10.00%)</Typography>
             </Typography>
             <Typography>
               $

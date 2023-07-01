@@ -34,7 +34,6 @@ export default function FormDialog({ open, setOpen, handleFormSubmit }) {
         {({
           values,
           errors,
-          touched,
           handleBlur,
           handleChange,
           handleSubmit,

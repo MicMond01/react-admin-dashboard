@@ -6,6 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 // import { useState } from "react";
 import { Controls } from "../components/control";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const Form = () => {
   // const [password, setPassword] = useState({
@@ -34,14 +35,7 @@ const Form = () => {
           initialValues={initialValues}
           validationSchema={checkoutSchema}
         >
-          {({
-            values,
-            errors,
-            touched,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-          }) => (
+          {({ values, errors, handleBlur, handleChange, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <Box
                 display="grid"
@@ -102,7 +96,7 @@ const Form = () => {
                   Login
                 </Button>
                 <Typography display="center" justifyContent="center" mt="20px">
-                  Don't have an account? <Link to="/register">Sign Up</Link>{" "}
+                  Don't have an account? <Link to="/register">Sign Up</Link>
                 </Typography>
               </Box>
             </form>

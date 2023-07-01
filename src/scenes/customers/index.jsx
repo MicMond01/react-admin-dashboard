@@ -1,6 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import CustomerTable from "../../components/tables/CustomerTable";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import EmailForm from "../../components/control/EmailForm";
 import PopOver from "../../components/PopOver";
 import CustomersHeader from "../../components/headers/CustomersHeader";
