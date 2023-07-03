@@ -48,3 +48,5 @@ ReactDOM.render(
     // "moment": "2.29.2",
     
     // "react-image-lightbox": "^5.1.1",
+    // "babel-eslint": "^10.1.0",
+    // "react-jvectormap": "^0.0.16",
