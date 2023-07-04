@@ -464,3 +464,12 @@ export default function CustomerTable({
     );
   }
 }
+
+CustomerTable.propTypes = {
+  importedArr: PropTypes.array.isRequired,
+  handleClickOpen: PropTypes.func.isRequired,
+  HandleOpenPopOver: PropTypes.func.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
+  error: PropTypes.object,
+  searchFunc: PropTypes.func.isRequired,
+};

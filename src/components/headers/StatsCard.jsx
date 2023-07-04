@@ -2,6 +2,7 @@ import { Box, useTheme } from "@mui/material";
 import React from "react";
 import { Typography } from "@mui/material/";
 import { tokens } from "../../theme";
+import PropTypes from "prop-types";
 
 const StatsCard = ({ top, span, colorLine, hValue }) => {
   const theme = useTheme();
@@ -43,6 +44,13 @@ const StatsCard = ({ top, span, colorLine, hValue }) => {
       </Box>
     </Box>
   );
+};
+
+StatsCard.propTypes = {
+  top: PropTypes.string.isRequired,
+  span: PropTypes.string.isRequired,
+  colorLine: PropTypes.string.isRequired,
+  hValue: PropTypes.string.isRequired,
 };
 
 export default StatsCard;

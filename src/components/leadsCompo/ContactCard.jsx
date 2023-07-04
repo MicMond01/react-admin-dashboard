@@ -8,6 +8,7 @@ import { Typography } from "@mui/material/";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
 import AddNewContact from "./AddNewContact";
+import PropTypes from "prop-types";
 // import CustomAvatar from '../TableComponents/CustomAvatar'
 // import { ReactComponent as RedArrow } from '../../assets/icons/High.svg'
 // import { ReactComponent as YellowArrow } from '../../assets/icons/Medium.svg'
@@ -163,6 +164,19 @@ const TaskCard = ({ item, index }) => {
       )}
     </Draggable>
   );
+};
+
+TaskCard.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    telephone: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default TaskCard;

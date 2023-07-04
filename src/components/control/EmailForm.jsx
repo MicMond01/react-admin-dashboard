@@ -10,6 +10,7 @@ import { tokens } from "./../../theme";
 import { Controls } from ".";
 import "quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
+import PropTypes from 'prop-types';
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 var modules = {
@@ -114,12 +115,7 @@ export default function EmailForm({
       </DialogTitle>
       {/* <DialogContent> */}
       <Formik initialValues={initialValues} validationSchema={checkoutSchema}>
-        {({
-          values,
-          errors,
-          handleBlur,
-          handleChange,
-        }) => (
+        {({ values, errors, handleBlur, handleChange }) => (
           <form>
             <Box
               m="20px"
@@ -214,4 +210,11 @@ const initialValues = {
   //   to: "",
   subject: "",
   message: "",
+};
+
+EmailForm.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+  idValue: PropTypes.string.isRequired,
 };

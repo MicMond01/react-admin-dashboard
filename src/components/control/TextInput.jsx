@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField } from "@mui/material";
+import { PropTypes } from 'prop-types';
 
 const TextInput = ({
   variant = "filled",
@@ -32,4 +33,17 @@ const TextInput = ({
   );
 };
 
+
+TextInput.propTypes = {
+  variant: PropTypes.string, // Add prop validation for 'variant'
+  fullWidth: PropTypes.bool, // Add prop validation for 'fullWidth'
+  touched: PropTypes.bool, // Add prop validation for 'touched'
+  onBlur: PropTypes.func, // Add prop validation for 'onBlur'
+  name: PropTypes.string, // Add prop validation for 'name'
+  label: PropTypes.string, // Add prop validation for 'label'
+  type: PropTypes.string, // Add prop validation for 'type'
+  onChange: PropTypes.func, // Add prop validation for 'onChange'
+  value: PropTypes.string, // Add prop validation for 'value'
+  error: PropTypes.string, // Add prop validation for 'error'
+};
 export default TextInput;

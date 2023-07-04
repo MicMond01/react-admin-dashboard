@@ -8,6 +8,7 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { Formik } from "formik";
 import { Controls } from "./control";
+import PropTypes from "prop-types";
 
 export default function FormDialog({ open, setOpen, handleFormSubmit }) {
   const theme = useTheme();
@@ -151,6 +152,12 @@ export default function FormDialog({ open, setOpen, handleFormSubmit }) {
     </Dialog>
   );
 }
+
+FormDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+};
 
 const checkoutSchema = yup.object().shape({
   brandName: yup.string().required("required"),

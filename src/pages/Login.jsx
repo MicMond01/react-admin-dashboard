@@ -96,7 +96,7 @@ const Form = () => {
                   Login
                 </Button>
                 <Typography display="center" justifyContent="center" mt="20px">
-                  Don't have an account? <Link to="/register">Sign Up</Link>
+                  New user? <Link to="/register">Sign Up</Link>
                 </Typography>
               </Box>
             </form>

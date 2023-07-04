@@ -9,11 +9,9 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import FormDialog from "../FormDialog";
-// import StatsCard from "./StatsCard";
-// function handleClick(event) {
-//   event.preventDefault();
-//   console.info("You clicked a breadcrumb.");
-// }
+import PropTypes from "prop-types";
+
+
 
 const CustomersHeader = ({ handleFormSubmit, searchValue, setSearchValue }) => {
   const theme = useTheme();
@@ -108,6 +106,12 @@ const CustomersHeader = ({ handleFormSubmit, searchValue, setSearchValue }) => {
       <Box>{/* <StatsCard /> */}</Box>
     </Box>
   );
+};
+
+CustomersHeader.propTypes = {
+  handleFormSubmit: PropTypes.func.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  setSearchValue: PropTypes.func.isRequired,
 };
 
 export default CustomersHeader;

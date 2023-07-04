@@ -7,6 +7,7 @@ import { Box } from "@mui/material";
 import { Typography } from "@mui/material/";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
+import PropTypes from 'prop-types';
 // import AddNewContact from "./AddNewContact";
 // import CustomAvatar from '../TableComponents/CustomAvatar'
 // import { ReactComponent as RedArrow } from '../../assets/icons/High.svg'
@@ -162,3 +163,17 @@ export default TaskCard;
 //   grid-gap: 20px;
 //   flex-direction: column;
 // `;
+
+TaskCard.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    todo: PropTypes.string.isRequired,
+    priority: PropTypes.string.isRequired,
+    project: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired,
+    dueDate: PropTypes.string.isRequired,
+    // Add other prop type validations for nested properties if necessary
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};

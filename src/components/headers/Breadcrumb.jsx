@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { PropTypes } from "prop-types";
 
 function handleClick(event) {
   event.preventDefault();
@@ -45,3 +46,9 @@ export default function Breadcrumb({ id, title, name }) {
     </Stack>
   );
 }
+
+Breadcrumb.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};

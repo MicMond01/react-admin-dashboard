@@ -310,167 +310,171 @@ export default function SalesTable({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - importedArr.length) : 0;
 
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        mt: "50px",
+      }}
+    >
+      <Paper sx={{ width: "100%", mb: 2 }}>
+        <EnhancedTableToolbar numSelected={selected.length} />
+        <TableContainer>
+          <Table
+            sx={{ minWidth: 750, bgcolor: colors.blueAccent[900] }}
+            aria-labelledby="tableTitle"
+            size={dense ? "small" : "medium"}
+          >
+            <EnhancedTableHead
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={importedArr.length}
+            />
+            <TableBody>
+              {stableSort(
+                searchFunc(importedArr),
+                getComparator(order, orderBy)
+              )
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.id);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-    return (
-      <Box
-        sx={{
-          width: "100%",
-          mt: "50px",
-        }}
-      >
-        <Paper sx={{ width: "100%", mb: 2 }}>
-          <EnhancedTableToolbar numSelected={selected.length} />
-          <TableContainer>
-            <Table
-              sx={{ minWidth: 750, bgcolor: colors.blueAccent[900] }}
-              aria-labelledby="tableTitle"
-              size={dense ? "small" : "medium"}
-            >
-              <EnhancedTableHead
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={importedArr.length}
-              />
-              <TableBody>
-                {stableSort(
-                  searchFunc(importedArr),
-                  getComparator(order, orderBy)
-                )
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
-                    const labelId = `enhanced-table-checkbox-${index}`;
+                  const paymentFig = parseFloat(
+                    row?.payment?.replace(/,/g, "")
+                  );
+                  const subTotalValue =
+                    parseFloat(row?.invoiceValues?.rate?.replace(/,/g, "")) *
+                    parseFloat(row?.invoiceValues?.qty.replace(/,/g, ""));
 
-                    const paymentFig = parseFloat(
-                      row?.payment?.replace(/,/g, "")
-                    );
-                    const subTotalValue =
-                      parseFloat(row?.invoiceValues?.rate?.replace(/,/g, "")) *
-                      parseFloat(row?.invoiceValues?.qty.replace(/,/g, ""));
+                  //console.log(importedArr);
 
-                    //console.log(importedArr);
+                  const discountFig = 0.05 * subTotalValue;
+                  const vatFig = 0.1 * subTotalValue;
+                  const taxFig = 0.15 * subTotalValue;
+                  const grandTotal =
+                    subTotalValue + vatFig + taxFig - discountFig;
 
-                    const discountFig = 0.05 * subTotalValue;
-                    const vatFig = 0.1 * subTotalValue;
-                    const taxFig = 0.15 * subTotalValue;
-                    const grandTotal =
-                      subTotalValue + vatFig + taxFig - discountFig;
-
-                    return (
-                      <TableRow
-                        hover
-                        onClick={(event) => handleClick(event, row.id)}
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={index}
-                        selected={isItemSelected}
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row.id)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={index}
+                      selected={isItemSelected}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          color="primary"
+                          checked={isItemSelected}
+                          inputProps={{
+                            "aria-labelledby": labelId,
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
                       >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            color="primary"
-                            checked={isItemSelected}
-                            inputProps={{
-                              "aria-labelledby": labelId,
-                            }}
-                          />
-                        </TableCell>
-                        <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
-                        >
-                          {row.id}
-                        </TableCell>
+                        {row.id}
+                      </TableCell>
 
-                        {/* <TableCell align="right">{row.id}</TableCell> */}
-                        <TableCell align="right">{row.date}</TableCell>
-                        <TableCell align="right">{row.brandName}</TableCell>
-                        <TableCell align="center">{row.supplies}</TableCell>
-                        <TableCell align="right">
-                          $
-                          {grandTotal
-                            .toFixed(2)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                        </TableCell>
-                        <TableCell align="right">
-                          $
-                          {paymentFig
-                            .toFixed(2)
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                        </TableCell>
+                      {/* <TableCell align="right">{row.id}</TableCell> */}
+                      <TableCell align="right">{row.date}</TableCell>
+                      <TableCell align="right">{row.brandName}</TableCell>
+                      <TableCell align="center">{row.supplies}</TableCell>
+                      <TableCell align="right">
+                        $
+                        {grandTotal
+                          .toFixed(2)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      </TableCell>
+                      <TableCell align="right">
+                        $
+                        {paymentFig
+                          .toFixed(2)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                      </TableCell>
 
-                        <TableCell
-                          align="right"
+                      <TableCell
+                        align="right"
+                        sx={{
+                          color:
+                            paymentFig >= grandTotal
+                              ? colors.greenAccent[600]
+                              : colors.redAccent[300],
+                        }}
+                      >
+                        <Box
                           sx={{
-                            color:
-                              paymentFig >= grandTotal
-                                ? colors.greenAccent[600]
-                                : colors.redAccent[300],
+                            bgcolor: colors.grey[600],
+                            borderRadius: "10px",
+                            display: "center",
+                            justifyContent: "center",
+                            alignItems: "center",
                           }}
                         >
-                          <Box
-                            sx={{
-                              bgcolor: colors.grey[600],
-                              borderRadius: "10px",
-                              display: "center",
-                              justifyContent: "center",
-                              alignItems: "center",
-                            }}
-                          >
-                            {paymentFig >= grandTotal ? "Paid" : "Overdue"}
-                          </Box>
-                        </TableCell>
-                        <TableCell align="right" display="inline-flex">
-                          <Tooltip title="Delete">
-                            {/* here */}
-                            <IconButton
-                              onClick={() => HandleOpenPopOver(row.id)}
-                            >
-                              <DeleteIcon />
-                            </IconButton>
-                          </Tooltip>
-                          <Tooltip title="open receipt">
-                            <IconButton onClick={() => handleNewWindow(row)}>
-                              <OpenInNewIcon />
-                            </IconButton>
-                          </Tooltip>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow
-                    style={{
-                      height: (dense ? 33 : 53) * emptyRows,
-                    }}
-                  >
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={importedArr.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-        <FormControlLabel
-          control={<Switch checked={dense} onChange={handleChangeDense} />}
-          label="Dense padding"
+                          {paymentFig >= grandTotal ? "Paid" : "Overdue"}
+                        </Box>
+                      </TableCell>
+                      <TableCell align="right" display="inline-flex">
+                        <Tooltip title="Delete">
+                          {/* here */}
+                          <IconButton onClick={() => HandleOpenPopOver(row.id)}>
+                            <DeleteIcon />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="open receipt">
+                          <IconButton onClick={() => handleNewWindow(row)}>
+                            <OpenInNewIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height: (dense ? 33 : 53) * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={importedArr.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
         />
-      </Box>
-    );
+      </Paper>
+      <FormControlLabel
+        control={<Switch checked={dense} onChange={handleChangeDense} />}
+        label="Dense padding"
+      />
+    </Box>
+  );
 }
+
+SalesTable.propTypes = {
+  importedArr: PropTypes.array.isRequired,
+  HandleOpenPopOver: PropTypes.func.isRequired,
+  searchFunc: PropTypes.func.isRequired,
+};
+

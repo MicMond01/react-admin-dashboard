@@ -11,6 +11,7 @@ import TimelineIcon from "@mui/icons-material/Timeline";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AddIcon from "@mui/icons-material/Add";
 import FormDialog from "../FormDialog";
+import PropTypes from 'prop-types';
 // import StatsCard from "./StatsCard";
 // function handleClick(event) {
 //   event.preventDefault();
@@ -151,6 +152,13 @@ const InvoiceHeader = ({
       <Box>{/* <StatsCard /> */}</Box>
     </Box>
   );
+};
+
+InvoiceHeader.propTypes = {
+  handleFormSubmit: PropTypes.func.isRequired,
+  hideStatCard: PropTypes.bool.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  setSearchValue: PropTypes.func.isRequired,
 };
 
 export default InvoiceHeader;

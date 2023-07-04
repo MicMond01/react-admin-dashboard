@@ -2,14 +2,14 @@ import {
   FormControl,
   FormHelperText,
   InputLabel,
-  // MenuItem,
   Select as MuiSelect,
 } from "@mui/material";
 import React from "react";
+import PropTypes from "prop-types";
 
 function Select({ name, label, value, error, onChange, options, ...other }) {
   return (
-    <FormControl fullWidth error={error?.length > 0}>
+    <FormControl fullWidth error={error && error.length > 0}>
       <InputLabel id="demo-simple-select-label">{label}</InputLabel>
       <MuiSelect
         name={name}
@@ -32,5 +32,14 @@ function Select({ name, label, value, error, onChange, options, ...other }) {
     </FormControl>
   );
 }
+
+Select.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.array.isRequired,
+};
 
 export default Select;

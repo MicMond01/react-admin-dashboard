@@ -7,6 +7,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import { Controls } from ".";
+import PropTypes from "prop-types";
 
 import { tokens } from "../../theme";
 
@@ -31,13 +32,7 @@ export default function FormDialog({ open, setOpen, handleFormSubmit }) {
         initialValues={initialValues}
         validationSchema={checkoutSchema}
       >
-        {({
-          values,
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-        }) => (
+        {({ values, errors, handleBlur, handleChange, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <Box
               m="20px"
@@ -139,4 +134,10 @@ const initialValues = {
   email: "",
   address: "",
   city: "",
+};
+
+FormDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
 };

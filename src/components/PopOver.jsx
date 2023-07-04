@@ -5,6 +5,7 @@ import { useTheme } from "@mui/material";
 // import { tokens } from "./../../theme";
 import { Box } from "@mui/material";
 import { tokens } from "../theme";
+import PropTypes from "prop-types";
 
 const PopOver = ({ handleDelete, HandleClosePopOver }) => {
   const theme = useTheme();
@@ -114,6 +115,11 @@ const PopOver = ({ handleDelete, HandleClosePopOver }) => {
       ></Box>
     </Box>
   );
+};
+
+PopOver.propTypes = {
+  handleDelete: PropTypes.func.isRequired,
+  HandleClosePopOver: PropTypes.func.isRequired,
 };
 
 export default PopOver;

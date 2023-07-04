@@ -2,6 +2,7 @@ import { Box, Button, useTheme } from "@mui/material";
 import React from "react";
 import { tokens } from "../../theme";
 import { Typography } from "@mui/material/";
+import PropTypes from "prop-types";
 
 const KnowledgebaseCard = ({ icon, head, body, link, linkBody }) => {
   const theme = useTheme();
@@ -95,6 +96,14 @@ const KnowledgebaseCard = ({ icon, head, body, link, linkBody }) => {
       </Box>
     </Box>
   );
+};
+
+KnowledgebaseCard.propTypes = {
+  icon: PropTypes.node.isRequired,
+  head: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+  linkBody: PropTypes.string.isRequired,
 };
 
 export default KnowledgebaseCard;
